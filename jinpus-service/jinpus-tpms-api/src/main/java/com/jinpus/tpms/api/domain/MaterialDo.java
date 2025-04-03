@@ -45,6 +45,8 @@ public class MaterialDo extends Model<MaterialDo> {
     @Schema(description="采购单位")
     private Long unit;
 
+
+
 	/**
 	* 所属组织
 	*/
@@ -56,6 +58,12 @@ public class MaterialDo extends Model<MaterialDo> {
 	*/
     @Schema(description="物料大类")
     private Long materialTypeId;
+
+
+	/**
+	 *  物料品类
+	 */
+	private Integer materialCategory;
 
 	/**
 	* 物料颜色

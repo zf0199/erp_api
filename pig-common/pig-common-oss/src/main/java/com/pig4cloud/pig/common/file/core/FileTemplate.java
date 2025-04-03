@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.List;
@@ -44,7 +45,7 @@ public interface FileTemplate extends InitializingBean {
 	 * @param contextType 文件类型
 	 * @throws Exception
 	 */
-	void putObject(String bucketName, String objectName, InputStream stream, String contextType) throws Exception;
+	String putObject(String bucketName, String objectName, InputStream stream, String contextType) throws Exception;
 
 	/**
 	 * 上传文件

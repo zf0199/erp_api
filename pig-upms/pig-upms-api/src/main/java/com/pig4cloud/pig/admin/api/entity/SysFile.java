@@ -75,6 +75,9 @@ public class SysFile extends Model<SysFile> {
 	@Schema(description = "文件大小")
 	private Long fileSize;
 
+	@Schema(description = "网络地址")
+	private String url;
+
 	/**
 	 * 上传人
 	 */

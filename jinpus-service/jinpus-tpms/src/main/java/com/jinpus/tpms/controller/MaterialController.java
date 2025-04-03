@@ -54,11 +54,12 @@ public class MaterialController {
 	public R getMaterialPage(@ParameterObject Page page, @ParameterObject MaterialDo material) {
 		LambdaQueryWrapper<MaterialDo> wrapper = Wrappers.lambdaQuery();
 		Optional.ofNullable(material)
-				.filter(e -> ObjectUtils.isNotEmpty(material.getName()))
 				.ifPresent(t ->
-						wrapper.like(MaterialDo::getName, material.getName())
+						wrapper.like( ObjectUtils.isNotEmpty(material.getName()),MaterialDo::getName, material.getName())
 								.or()
-								.like(MaterialDo::getNo, material.getNo())
+								.like( ObjectUtils.isNotEmpty(material.getName()),MaterialDo::getNo, material.getName())
+								.eq(ObjectUtils.isNotEmpty(material.getMaterialTypeId()),MaterialDo::getMaterialTypeId,t.getMaterialTypeId())
+								.orderByDesc(MaterialDo::getCreateTime)
 				);
 		return R.ok(materialService.page(page, wrapper));
 	}

@@ -1,6 +1,8 @@
 package com.jinpus.tpms.service.impl;
 
+import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinpus.tpms.api.domain.StyleDo;
@@ -52,32 +54,40 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, StyleDo> implemen
 	private final StylePartMapper stylePartMapper;
 
 	/**
-	 *    新增款类
+	 * 新增款类
+	 *
 	 * @param styleDto 新增参数
 	 */
 	@Override
-	public void add(StyleDto styleDto)  {
+	public void add(StyleDto styleDto) {
 		StyleDo style = new StyleDo();
-		BeanUtils.copyProperties(style,styleDto);
+		BeanUtils.copyProperties(styleDto, style);
 		boolean save = this.save(style);
 		Long id = style.getId();
-		Optional.ofNullable( styleDto.getStyleProcedures()).ifPresent(e -> {
-			e.forEach(t -> t.setStyleId(id));
-			styleProcedureService.saveBatch(e);
-		});
-		Optional.ofNullable( styleDto.getStyleParts()).ifPresent(e -> {
-			e.forEach(t -> t.setStyleId(id));
-			stylePartService.saveBatch(e);
-		});
-		Optional.ofNullable( styleDto.getStyleMaterial()).ifPresent(e -> {
-			e.forEach(t -> t.setStyleId(id));
-			styleMaterialService.saveBatch(e);
-		});
+
+		Optional.ofNullable(styleDto.getStyleProcedures())
+				.ifPresent(e -> {
+					e.forEach(t -> t.setStyleId(id));
+					styleProcedureService.saveBatch(e);
+				});
+
+		Optional.ofNullable(styleDto.getStyleParts())
+				.ifPresent(e -> {
+					e.forEach(t -> t.setStyleId(id));
+					stylePartService.saveBatch(e);
+				});
+
+		Optional.ofNullable(styleDto.getStyleMaterial())
+				.ifPresent(e -> {
+					e.forEach(t -> t.setStyleId(id));
+					styleMaterialService.saveBatch(e);
+				});
 	}
 
 
 	/**
-	 *   删除所有
+	 * 删除所有
+	 *
 	 * @param ids id集合
 	 */
 	@Override
@@ -85,10 +95,81 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, StyleDo> implemen
 		List<Long> listIds = Arrays.asList(ids);
 		this.removeBatchByIds(listIds);
 		LambdaQueryWrapper<StyleProcedureDo> lambdaQueryWrapper = Wrappers.lambdaQuery();
-		styleProcedureMapper.delete(lambdaQueryWrapper.in(StyleProcedureDo::getStyleId,listIds));
+		styleProcedureMapper.delete(lambdaQueryWrapper.in(StyleProcedureDo::getStyleId, listIds));
 		LambdaQueryWrapper<StyleMaterialDo> styleMaterialWrapper = Wrappers.lambdaQuery();
-		styleMaterialMapper.delete(styleMaterialWrapper.in(StyleMaterialDo::getStyleId,listIds));
+		styleMaterialMapper.delete(styleMaterialWrapper.in(StyleMaterialDo::getStyleId, listIds));
 		LambdaQueryWrapper<StylePartDo> stylePartWrapper = Wrappers.lambdaQuery();
-		stylePartMapper.delete(stylePartWrapper.in(StylePartDo::getStyleId,listIds));
+		stylePartMapper.delete(stylePartWrapper.in(StylePartDo::getStyleId, listIds));
+	}
+
+	@Override
+	public void update(StyleDto styleDto) {
+		StyleDo styleDo = new StyleDo();
+		BeanUtils.copyProperties(styleDto, styleDo);
+		this.updateById(styleDo);
+
+		List<StyleProcedureDo> styleProcedures = styleDto.getStyleProcedures();
+		LambdaQueryWrapper<StyleProcedureDo> wrapper = Wrappers.lambdaQuery();
+		wrapper.eq(StyleProcedureDo::getStyleId, styleDto.getId());
+		styleProcedureService.remove(wrapper);
+
+		styleProcedures.forEach(e -> {
+//			e.setId(IdWorker.getId());
+			e.setStyleId(styleDto.getId());
+		});
+		styleProcedureService.saveBatch(styleProcedures);
+
+		List<StylePartDo> styleParts = styleDto.getStyleParts();
+
+		LambdaQueryWrapper<StylePartDo> wrapper1 = Wrappers.lambdaQuery();
+		wrapper1.eq(StylePartDo::getStyleId, styleDto.getId());
+		stylePartService.remove(wrapper1);
+		styleParts.forEach(e -> {
+//			e.setId(IdWorker.getId());
+			e.setStyleId(styleDto.getId());
+		});
+		stylePartService.saveBatch(styleParts);
+
+
+		List<StyleMaterialDo> styleMaterial = styleDto.getStyleMaterial();
+
+
+		LambdaQueryWrapper<StyleMaterialDo> wrapper2 = Wrappers.lambdaQuery();
+		wrapper2.eq(StyleMaterialDo::getStyleId, styleDto.getId());
+		styleMaterialService.remove(wrapper2);
+
+		styleMaterial.forEach(e -> {
+//			e.setId(IdWorker.getId());
+			e.setStyleId(styleDto.getId());
+		});
+		styleMaterialService.saveBatch(styleMaterial);
+
+
+	}
+
+	@Override
+	public StyleDto getDetails(StyleDo styleDo) {
+		Long id = styleDo.getId();
+
+		StyleDo byId = this.getById(id);
+		StyleDto styleDto = new StyleDto();
+		BeanUtils.copyProperties(byId, styleDto);
+
+		LambdaQueryWrapper<StyleMaterialDo> wrapper = Wrappers.lambdaQuery();
+		wrapper.eq(StyleMaterialDo::getStyleId, id);
+		List<StyleMaterialDo> list = styleMaterialService.list(wrapper);
+
+		LambdaQueryWrapper<StylePartDo> wrapper1 = Wrappers.lambdaQuery();
+		wrapper1.eq(StylePartDo::getStyleId, id);
+		List<StylePartDo> list1 = stylePartService.list(wrapper1);
+
+		LambdaQueryWrapper<StyleProcedureDo> wrapper2 = Wrappers.lambdaQuery();
+		wrapper2.eq(StyleProcedureDo::getStyleId, id);
+		List<StyleProcedureDo> list2 = styleProcedureService.list(wrapper2);
+		styleDto.setStyleProcedures(list2);
+
+		styleDto.setStyleMaterial(list);
+		styleDto.setStyleParts(list1);
+		return styleDto;
 	}
 }

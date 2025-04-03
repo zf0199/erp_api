@@ -163,9 +163,9 @@ public class OssTemplate implements InitializingBean, FileTemplate {
 	 * @param contextType 文件类型
 	 * @throws Exception
 	 */
-	public void putObject(String bucketName, String objectName, InputStream stream, String contextType)
-			throws Exception {
-		putObject(bucketName, objectName, stream, stream.available(), contextType);
+	public String putObject(String bucketName, String objectName, InputStream stream, String contextType) throws Exception {
+		return putObject(bucketName, objectName, stream, stream.available(), contextType);
+
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class OssTemplate implements InitializingBean, FileTemplate {
 	 * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutObject">AWS
 	 * API Documentation</a>
 	 */
-	public PutObjectResult putObject(String bucketName, String objectName, InputStream stream, long size,
+	public String putObject(String bucketName, String objectName, InputStream stream, long size,
 			String contextType) throws Exception {
 		// String fileName = getFileName(objectName);
 		byte[] bytes = IOUtils.toByteArray(stream);
@@ -187,8 +187,10 @@ public class OssTemplate implements InitializingBean, FileTemplate {
 		objectMetadata.setContentLength(size);
 		objectMetadata.setContentType(contextType);
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+		PutObjectResult putObjectResult = amazonS3.putObject(bucketName, "images/" + objectName, byteArrayInputStream, objectMetadata);
+		URL url = amazonS3.getUrl(bucketName, "images/" + objectName);
 		// 上传
-		return amazonS3.putObject(bucketName, objectName, byteArrayInputStream, objectMetadata);
+		return url.toString();
 
 	}
 

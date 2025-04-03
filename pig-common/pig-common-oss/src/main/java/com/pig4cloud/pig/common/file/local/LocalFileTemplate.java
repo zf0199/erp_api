@@ -66,7 +66,7 @@ public class LocalFileTemplate implements FileTemplate {
 	 * @param contextType 文件类型
 	 */
 	@Override
-	public void putObject(String bucketName, String objectName, InputStream stream, String contextType) {
+	public String putObject(String bucketName, String objectName, InputStream stream, String contextType) {
 		// 当 Bucket 不存在时创建
 		String dir = properties.getLocal().getBasePath() + FileUtil.FILE_SEPARATOR + bucketName;
 		if (!FileUtil.isDirectory(properties.getLocal().getBasePath() + FileUtil.FILE_SEPARATOR + bucketName)) {
@@ -76,6 +76,7 @@ public class LocalFileTemplate implements FileTemplate {
 		// 写入文件
 		File file = FileUtil.file(dir + FileUtil.FILE_SEPARATOR + objectName);
 		FileUtil.writeFromStream(stream, file);
+		return bucketName;
 	}
 
 	/**

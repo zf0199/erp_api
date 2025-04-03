@@ -38,6 +38,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,23 +65,24 @@ public class SysFileServiceImpl extends ServiceImpl<SysFileMapper, SysFile> impl
 	 * @return
 	 */
 	@Override
-	public R uploadFile(MultipartFile file) {
+	public R uploadFile(MultipartFile file)  {
 		String fileName = IdUtil.simpleUUID() + StrUtil.DOT + FileUtil.extName(file.getOriginalFilename());
 		Map<String, String> resultMap = new HashMap<>(4);
 		resultMap.put("bucketName", properties.getBucketName());
 		resultMap.put("fileName", fileName);
 		resultMap.put("url", String.format("/admin/sys-file/%s/%s", properties.getBucketName(), fileName));
 
+
+		String url;
 		try (InputStream inputStream = file.getInputStream()) {
-			fileTemplate.putObject(properties.getBucketName(), fileName, inputStream, file.getContentType());
+			url = fileTemplate.putObject(properties.getBucketName(), fileName, inputStream, file.getContentType());
 			// 文件管理数据记录,收集管理追踪文件
-			fileLog(file, fileName);
-		}
-		catch (Exception e) {
+			fileLog(file, fileName,url);
+		} catch (Exception e) {
 			log.error("上传失败", e);
 			return R.failed(e.getLocalizedMessage());
 		}
-		return R.ok(resultMap);
+		return R.ok(url);
 	}
 
 	/**
@@ -123,13 +125,14 @@ public class SysFileServiceImpl extends ServiceImpl<SysFileMapper, SysFile> impl
 	 * @param file 上传文件格式
 	 * @param fileName 文件名
 	 */
-	private void fileLog(MultipartFile file, String fileName) {
+	private void fileLog(MultipartFile file, String fileName,String url) {
 		SysFile sysFile = new SysFile();
 		sysFile.setFileName(fileName);
 		sysFile.setOriginal(file.getOriginalFilename());
 		sysFile.setFileSize(file.getSize());
 		sysFile.setType(FileUtil.extName(file.getOriginalFilename()));
 		sysFile.setBucketName(properties.getBucketName());
+		sysFile.setUrl(url);
 		this.save(sysFile);
 	}
 

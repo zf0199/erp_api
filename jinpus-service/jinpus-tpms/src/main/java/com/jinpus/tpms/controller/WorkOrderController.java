@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 /**
- * 生产制单基础表
- *
- * @author pig
- * @date 2025-03-20 20:02:51
+ * @className: StyleController
+ * @author: zf
+ * @date: 2025-03-20 20:02:51
+ * @version: 1.0
+ * @description: 生产制单基础表 控制层
  */
 @RestController
 @RequiredArgsConstructor

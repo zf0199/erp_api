@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 /**
- * 款类表
- *
- * @author pig
- * @date 2025-03-20 20:01:21
+ * @className: StyleController
+ * @author: zf
+ * @date: 2025-03-20 20:01:21
+ * @version: 1.0
+ * @description: 款类表控制层
  */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/style")
@@ -52,6 +55,7 @@ public class StyleController {
 //	@HasPermission("basic_style_view")
 	public R getStylePage(@ParameterObject Page page, @ParameterObject StyleDo style) {
 		LambdaQueryWrapper<StyleDo> wrapper = Wrappers.lambdaQuery();
+		wrapper.orderByDesc(StyleDo::getCreateTime);
 		return R.ok(styleService.page(page, wrapper));
 	}
 
@@ -66,7 +70,7 @@ public class StyleController {
 	@GetMapping("/details")
 //	@HasPermission("basic_style_view")
 	public R getDetails(@ParameterObject StyleDo style) {
-		return R.ok(styleService.list(Wrappers.query(style)));
+		return R.ok(styleService.getDetails(style));
 	}
 
 	/**
@@ -93,8 +97,9 @@ public class StyleController {
 	@SysLog("修改款类表")
 	@PutMapping
 //	@HasPermission("basic_style_edit")
-	public R updateById(@RequestBody StyleDo style) {
-		return R.ok(styleService.updateById(style));
+	public R updateById(@RequestBody StyleDto style) {
+		styleService.update(style);
+		return R.ok();
 	}
 
 	/**

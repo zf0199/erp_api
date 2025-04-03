@@ -21,7 +21,7 @@ public class StyleDto extends StyleDo {
 	/**
 	 *  款类工序
 	 */
-	private List<StyleProcedureDo> StyleProcedures;
+	private List<StyleProcedureDo> styleProcedures;
 
 	/**
 	 *   款类部位

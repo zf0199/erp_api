@@ -12,9 +12,13 @@ public interface StyleService extends IService<StyleDo> {
 	 *   新增款类
 	 * @param styleDto 新增参数
 	 */
-	void add(StyleDto styleDto) ;
+	void add(StyleDto styleDto);
 
 
 	void removeAll(Long[] ids);
+
+	void update(StyleDto styleDto);
+
+	StyleDto getDetails(StyleDo styleDo);
 
 }

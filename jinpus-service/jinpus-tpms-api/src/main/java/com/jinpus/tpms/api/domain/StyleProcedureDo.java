@@ -76,11 +76,7 @@ public class StyleProcedureDo extends Model<StyleProcedureDo> {
 	private String workHours;
 
 
-	/**
-	 *   合计工时
-	 */
-	@Schema(description = "合计工时")
-	private String  sumWage;
+
 	/**
 	* 备注
 	*/

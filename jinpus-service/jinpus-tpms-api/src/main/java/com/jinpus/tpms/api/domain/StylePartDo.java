@@ -23,6 +23,7 @@ public class StylePartDo extends Model<StylePartDo> {
 	/**
 	* id
 	*/
+	@TableId(type = IdType.ASSIGN_ID)
     @Schema(description="id")
     private Long id;
 

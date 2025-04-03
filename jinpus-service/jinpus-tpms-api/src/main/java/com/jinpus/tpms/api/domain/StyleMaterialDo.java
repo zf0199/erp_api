@@ -50,6 +50,9 @@ public class StyleMaterialDo extends Model<StyleMaterialDo> {
     @Schema(description="物料类型id")
     private Long materialTypeId;
 
+	@Schema(description="物料类型")
+	private Integer type;
+
 	/**
 	* 物料颜色
 	*/

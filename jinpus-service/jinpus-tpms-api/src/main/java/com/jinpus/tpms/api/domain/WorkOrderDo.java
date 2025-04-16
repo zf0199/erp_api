@@ -2,9 +2,12 @@ package com.jinpus.tpms.api.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 /**
@@ -15,11 +18,9 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("work_order")
-@EqualsAndHashCode(callSuper = true)
 @Schema(description = "生产制单基础表")
-public class WorkOrderDo extends Model<WorkOrderDo> {
+public class WorkOrderDo extends BaseDo  {
 
- 
 	/**
 	* id
 	*/
@@ -102,12 +103,14 @@ public class WorkOrderDo extends Model<WorkOrderDo> {
 	/**
 	* 下单日期
 	*/
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description="下单日期")
     private LocalDateTime orderTime;
 
 	/**
 	* 工厂货期
 	*/
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description="工厂货期")
     private LocalDateTime factoryDate;
 
@@ -123,11 +126,7 @@ public class WorkOrderDo extends Model<WorkOrderDo> {
     @Schema(description="跟单人")
     private Long follower;
 
-	/**
-	* 备注
-	*/
-    @Schema(description="备注")
-    private String remark;
+
 
 	/**
 	* 客户评语
@@ -147,43 +146,12 @@ public class WorkOrderDo extends Model<WorkOrderDo> {
     @Schema(description="制单类型(版单0 制单1)")
     private Integer orderType;
 
-	/**
-	* 逻辑删除标识 (0未删除, 1已删除)
-	*/
-    @Schema(description="逻辑删除标识 (0未删除, 1已删除)")
-    private Integer isDel;
 
-	/**
-	* 状态 (0启用 1禁用)
-	*/
-    @Schema(description="状态 (0启用 1禁用)")
-    private Integer status;
+	@Schema(description = "前幅")
+	private String frontPhoto;
 
-	/**
-	* 创建人
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建人")
-    private String createBy;
+	@Schema(description = "后幅")
+	private String backPhoto;
 
-	/**
-	* 创建时间
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建时间")
-    private LocalDateTime createTime;
 
-	/**
-	* 修改人
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="修改人")
-    private String updateBy;
-
-	/**
-	* 更新时间
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新时间")
-    private LocalDateTime updateTime;
 }

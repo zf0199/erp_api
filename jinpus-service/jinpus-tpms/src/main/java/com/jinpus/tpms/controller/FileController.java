@@ -17,8 +17,6 @@ import com.pig4cloud.plugin.excel.annotation.RequestExcel;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.pig4cloud.pig.common.security.annotation.HasPermission;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.entity.FileEntity;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpHeaders;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,13 +25,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
+import java.util.Optional;
 
 /**
  * 文件表
@@ -51,13 +47,9 @@ public class FileController {
 
     private final FileService fileService;
 
-	private FileTemplate fileTemplate;
+	private final FileTemplate fileTemplate;
 
-	private FileProperties fileProperties;
-
-
-
-
+	private final FileProperties fileProperties;
 
 
     /**
@@ -74,8 +66,7 @@ public class FileController {
         return R.ok(fileService.page(page, wrapper));
     }
 
-
-	@Operation(summary = "w文件上传" , description = "文件上传" )
+	@Operation(summary = "文件上传" , description = "文件上传" )
 //	@HasPermission("basic_file_view")
 	@RequestMapping(method = RequestMethod.POST,value = "/fileUpload")
 	public R fileUpload( @RequestPart("file") MultipartFile file ){
@@ -87,12 +78,12 @@ public class FileController {
 
 		String format = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		String fileName;
-		if (fileType.startsWith("image/")){
+
+		if (Optional.ofNullable(fileType).orElse("").startsWith("image/")){
 			 fileName ="images/"+ format+FileUtil.extName(file.getOriginalFilename());
 		}else {
 			 fileName ="files/"+ format+FileUtil.extName(file.getOriginalFilename());
 		}
-
 		String url;
 		try (InputStream inputStream = file.getInputStream()) {
 			url = fileTemplate.putObject(fileProperties.getBucketName(), fileName, inputStream, file.getContentType());

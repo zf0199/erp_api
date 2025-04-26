@@ -5,7 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jinpus.tpms.api.domain.OrderBomDo;
+import com.jinpus.tpms.api.domain.OrderFabricDo;
 import com.jinpus.tpms.service.OrderBomService;
 import com.pig4cloud.pig.common.core.util.R;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
@@ -47,8 +47,8 @@ public class OrderBomController {
     @Operation(summary = "分页查询" , description = "分页查询" )
     @GetMapping("/page" )
     @HasPermission("basic_orderBom_view")
-    public R getOrderBomPage(@ParameterObject Page page, @ParameterObject OrderBomDo orderBom) {
-        LambdaQueryWrapper<OrderBomDo> wrapper = Wrappers.lambdaQuery();
+    public R getOrderBomPage(@ParameterObject Page page, @ParameterObject OrderFabricDo orderBom) {
+        LambdaQueryWrapper<OrderFabricDo> wrapper = Wrappers.lambdaQuery();
         return R.ok(orderBomService.page(page, wrapper));
     }
 
@@ -61,7 +61,7 @@ public class OrderBomController {
     @Operation(summary = "通过条件查询" , description = "通过条件查询对象" )
     @GetMapping("/details" )
     @HasPermission("basic_orderBom_view")
-    public R getDetails(@ParameterObject OrderBomDo orderBom) {
+    public R getDetails(@ParameterObject OrderFabricDo orderBom) {
         return R.ok(orderBomService.list(Wrappers.query(orderBom)));
     }
 
@@ -74,7 +74,7 @@ public class OrderBomController {
     @SysLog("新增物料表" )
     @PostMapping
     @HasPermission("basic_orderBom_add")
-    public R save(@RequestBody OrderBomDo orderBom) {
+    public R save(@RequestBody OrderFabricDo orderBom) {
         return R.ok(orderBomService.save(orderBom));
     }
 
@@ -87,7 +87,7 @@ public class OrderBomController {
     @SysLog("修改物料表" )
     @PutMapping
     @HasPermission("basic_orderBom_edit")
-    public R updateById(@RequestBody OrderBomDo orderBom) {
+    public R updateById(@RequestBody OrderFabricDo orderBom) {
         return R.ok(orderBomService.updateById(orderBom));
     }
 
@@ -114,8 +114,8 @@ public class OrderBomController {
     @ResponseExcel
     @GetMapping("/export")
     @HasPermission("basic_orderBom_export")
-    public List<OrderBomDo> exportExcel(OrderBomDo orderBom, Long[] ids) {
-        return orderBomService.list(Wrappers.lambdaQuery(orderBom).in(ArrayUtil.isNotEmpty(ids), OrderBomDo::getId, ids));
+    public List<OrderFabricDo> exportExcel(OrderFabricDo orderBom, Long[] ids) {
+        return orderBomService.list(Wrappers.lambdaQuery(orderBom).in(ArrayUtil.isNotEmpty(ids), OrderFabricDo::getId, ids));
     }
 
     /**
@@ -126,7 +126,7 @@ public class OrderBomController {
      */
     @PostMapping("/import")
     @HasPermission("basic_orderBom_export")
-    public R importExcel(@RequestExcel List<OrderBomDo> orderBomList, BindingResult bindingResult) {
+    public R importExcel(@RequestExcel List<OrderFabricDo> orderBomList, BindingResult bindingResult) {
         return R.ok(orderBomService.saveBatch(orderBomList));
     }
 }

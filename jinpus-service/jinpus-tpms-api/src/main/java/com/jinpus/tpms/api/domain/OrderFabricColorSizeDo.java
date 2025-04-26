@@ -2,45 +2,122 @@ package com.jinpus.tpms.api.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /**
- * @className: OrderSizeDo
+ * @className: OrderFabricColorDo
  * @author: zf
- * @date: 2025/4/15 9:44
+ * @date: 2025/4/17 11:11
  * @version: 1.0
  * @description:
  */
 @Data
-@TableName("order_size")
-@EqualsAndHashCode()
-@Schema(description = "制单尺码表")
-public class OrderSizeDo   {
-
-
-	@TableId(type = IdType.ASSIGN_ID)
-	@Schema(description = "id")
-	private Long id;
-
-	@Schema(description = "制单id")
-	private Long workOrderId;
-
-	@Schema(description = "制单颜色id")
-	private Long orderColorId;
-
-	@Schema(description = "尺码")
-	private String sizeName;
-
-	@Schema(description = "尺码数量")
-	private String sizeNum;
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName("order_fabric_color_size")
+public class OrderFabricColorSizeDo {
 
 	/**
-	 *   排序
+	 *  id
 	 */
-	private Integer sort;
+	@TableId(type = IdType.ASSIGN_ID)
+	private  Long id;
+
+
+	/**
+	 *  制单面料id
+	 */
+	private Long orderFabricId;
+
+
+	/**
+	 *  制单id
+	 */
+	private Long workOrderId;
+
+
+	/**
+	 * 制单颜色编号
+	 */
+	private String orderColorNo;
+
+	/**
+	 *  制单颜色
+	 */
+	private String orderColor;
+
+	/**
+	 *   制单数量
+	 */
+	private String colorNum;
+
+
+	/**
+	 *  制单颜色代码
+	 */
+	private String orderColorCode;
+
+
+	/**
+	 * 色组
+	 */
+	private String groupNo;
+
+
+	/**
+	 *   物料颜色代码
+	 */
+	private String fabricColorCode;
+	/**
+	 * 物料颜色
+	 */
+
+	private String fabricColor;
+
+	/**
+	 *  供应商色号
+	 */
+	private String supplierColorNo;
+
+
+	/**
+	 *  制单尺码
+	 */
+	private String orderSize;
+
+
+	private String orderSizeNum;
+
+	/**
+	 *  物料尺码
+	 */
+	private String fabricSize;
+
+
+
+	/**
+	 *  颜色单位用量
+	 */
+	private String colorUnitUsage;
+
+	/**
+	 *   颜色损耗
+	 */
+	private String  colorLossRatio;
+
+	/**
+	 *  尺码单位用量
+	 */
+	private String sizeUnitUsage;
+
+	/**
+	 *   尺码损耗
+	 */
+	private String  sizeLossRatio;
 
 	/**
 	 * 备注
@@ -91,8 +168,4 @@ public class OrderSizeDo   {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	@Schema(description="更新时间")
 	private LocalDateTime updateTime;
-
-
-
-
 }

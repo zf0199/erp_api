@@ -1,46 +1,58 @@
 package com.jinpus.tpms.api.domain;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /**
- * @className: OrderSizeDo
+ * @className: OrderFabricSizeDo
  * @author: zf
- * @date: 2025/4/15 9:44
+ * @date: 2025/4/17 11:12
  * @version: 1.0
  * @description:
  */
 @Data
-@TableName("order_size")
-@EqualsAndHashCode()
-@Schema(description = "制单尺码表")
-public class OrderSizeDo   {
-
-
-	@TableId(type = IdType.ASSIGN_ID)
-	@Schema(description = "id")
-	private Long id;
-
-	@Schema(description = "制单id")
-	private Long workOrderId;
-
-	@Schema(description = "制单颜色id")
-	private Long orderColorId;
-
-	@Schema(description = "尺码")
-	private String sizeName;
-
-	@Schema(description = "尺码数量")
-	private String sizeNum;
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName("order_fabric_size")
+public class OrderFabricSizeDo {
 
 	/**
-	 *   排序
+	 * id
 	 */
-	private Integer sort;
+	private long id;
+
+	/**
+	 *  制单面料id
+	 */
+	private  Long orderFabricId;
+
+	/**
+	 * 面料尺码
+	 */
+	private String orderSize;
+
+	/**
+	 * 面料尺码
+	 */
+	private String fabricSize;
+
+	/**
+	 * 设计用量
+	 */
+	private String unitUsage;
+
+	/**
+	 * 损耗
+	 */
+	private String lossRatio;
 
 	/**
 	 * 备注
@@ -91,8 +103,6 @@ public class OrderSizeDo   {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	@Schema(description="更新时间")
 	private LocalDateTime updateTime;
-
-
 
 
 }

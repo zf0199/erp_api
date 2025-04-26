@@ -2,8 +2,12 @@ package com.jinpus.tpms.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jinpus.tpms.api.domain.OrderFabricColorSizeDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
+import com.jinpus.tpms.api.vo.ColorSizeVo;
 import com.jinpus.tpms.api.dto.WorkOrderDto;
+import com.jinpus.tpms.api.vo.FabricColorSizeVo;
+import com.jinpus.tpms.api.vo.WorkOrderVo;
 
 import java.util.List;
 
@@ -20,8 +24,10 @@ public interface WorkOrderService extends IService<WorkOrderDo> {
 
 	Long add(WorkOrderDto workOrderDto);
 
-	List<WorkOrderDto> getList(WorkOrderDo workOrderDo);
+	WorkOrderVo getList(String tag, WorkOrderDo workOrderDo);
 
-	void updateById(WorkOrderDto workOrderDto);
+	void updateById(String tag,WorkOrderDto workOrderDto);
+
+	FabricColorSizeVo getColorAndSize(Long id);
 
 }

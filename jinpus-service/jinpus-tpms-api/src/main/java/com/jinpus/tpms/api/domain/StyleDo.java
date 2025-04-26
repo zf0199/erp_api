@@ -49,7 +49,7 @@ public class StyleDo extends Model<StyleDo> {
 	* 逻辑删除标识 (0未删除, 1已删除)
 	*/
     @Schema(description="逻辑删除标识 (0未删除, 1已删除)")
-    private Integer isDel;
+    private Integer delFlag;
 
 	/**
 	* 状态 (0启用 1禁用)

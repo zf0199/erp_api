@@ -3,44 +3,51 @@ package com.jinpus.tpms.api.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.context.annotation.Description;
 
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
 /**
- * @className: OrderSizeDo
+ * @className: OrderPartDo
  * @author: zf
- * @date: 2025/4/15 9:44
+ * @date: 2025/4/23 15:33
  * @version: 1.0
- * @description:
+ * @description: 制单部位表
  */
 @Data
-@TableName("order_size")
-@EqualsAndHashCode()
-@Schema(description = "制单尺码表")
-public class OrderSizeDo   {
+@TableName("order_part")
+public class OrderPartDo extends BaseDo {
 
-
+	/* id */
 	@TableId(type = IdType.ASSIGN_ID)
-	@Schema(description = "id")
 	private Long id;
 
-	@Schema(description = "制单id")
+	/** 制单id */
 	private Long workOrderId;
 
-	@Schema(description = "制单颜色id")
-	private Long orderColorId;
+	/** 编号 */
+	private String no;
 
-	@Schema(description = "尺码")
-	private String sizeName;
+	/** 部位名称 */
+	private String partName;
 
-	@Schema(description = "尺码数量")
-	private String sizeNum;
+	/** 误差范围 */
 
-	/**
-	 *   排序
-	 */
-	private Integer sort;
+	@Schema(description = "误差范围")
+	private String error;
+
+	/** 基准尺寸 */
+	private String basicSize;
+
+	/** 码差 */
+	private String sizeDifference;
+
+	/** 缩率 */
+	private String shrinkage;
+
+	/** 度量方法 */
+	private String method;
 
 	/**
 	 * 备注
@@ -60,7 +67,8 @@ public class OrderSizeDo   {
 	 * 逻辑删除标识 (0未删除, 1已删除)
 	 */
 	@Schema(description="逻辑删除标识 (0未删除, 1已删除)")
-
+//	@TableLogic
+//	@TableField(fill = FieldFill.INSERT)
 	private Integer delFlag;
 
 
@@ -91,7 +99,6 @@ public class OrderSizeDo   {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	@Schema(description="更新时间")
 	private LocalDateTime updateTime;
-
 
 
 

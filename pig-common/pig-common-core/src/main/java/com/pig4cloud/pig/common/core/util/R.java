@@ -55,7 +55,7 @@ public class R<T> implements Serializable {
 	}
 
 	public static <T> R<T> result(Boolean data) {
-		return  data ? R.ok():R.failed();
+		return data ? R.ok() : R.failed();
 	}
 
 	public static <T> R<T> ok(T data) {
@@ -86,7 +86,7 @@ public class R<T> implements Serializable {
 		R<T> apiResult = new R<>();
 		apiResult.setCode(code);
 		apiResult.setData(data);
-		apiResult.setMsg(msg);
+		apiResult.setMsg(msg == null ? "Success" : msg);
 		return apiResult;
 	}
 

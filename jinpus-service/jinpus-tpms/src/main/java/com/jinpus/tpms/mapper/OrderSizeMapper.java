@@ -3,6 +3,9 @@ package com.jinpus.tpms.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinpus.tpms.api.domain.OrderSizeDo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @className: OrderSizeMapper
@@ -13,5 +16,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface OrderSizeMapper extends BaseMapper<OrderSizeDo> {
+
+
+	List<OrderSizeDo> selectOrderSizeDistinctSize( @Param("workOrderId") Long workOrderId);
+
 }
 

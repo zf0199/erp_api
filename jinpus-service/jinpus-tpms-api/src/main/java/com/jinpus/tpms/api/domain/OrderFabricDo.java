@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
  * @date 2025-03-20 19:59:45
  */
 @Data
-@TableName("order_bom")
-@EqualsAndHashCode(callSuper = true)
-@Schema(description = "物料表")
-public class OrderBomDo extends Model<OrderBomDo> {
+@TableName("order_fabric")
+@EqualsAndHashCode
+@Schema(description = "制单面料表")
+public class OrderFabricDo  {
 
  
 	/**
@@ -26,6 +26,11 @@ public class OrderBomDo extends Model<OrderBomDo> {
     @TableId(type = IdType.ASSIGN_ID)
     @Schema(description="id")
     private Long id;
+
+	/**
+	 *  制单id
+	 */
+	private Long workOrderId;
 
 	/**
 	* 物料名称
@@ -56,6 +61,12 @@ public class OrderBomDo extends Model<OrderBomDo> {
 	*/
     @Schema(description="物料大类")
     private Long materialTypeId;
+
+
+	/**
+	 *   物料类别
+	 */
+	private Integer   materialCategory;
 
 	/**
 	* 物料颜色
@@ -96,20 +107,19 @@ public class OrderBomDo extends Model<OrderBomDo> {
 	/**
 	* 是否配色
 	*/
-    @Schema(description="是否配色")
+    @Schema(description="是否配色 0是 1否")
     private Integer isColorScheme;
 
 	/**
 	* 是否配码
 	*/
-    @Schema(description="是否配码")
+    @Schema(description="是否配码 0是 1否")
     private Integer isMatchingSize;
 
-	/**
-	* 物料类别
-	*/
-    @Schema(description="物料类别")
-    private Long materialTypeId2;
+
+
+	@Schema(description = "制单部位")
+	private String mark;
 
 	/**
 	* 克重
@@ -124,30 +134,71 @@ public class OrderBomDo extends Model<OrderBomDo> {
     private String bomQty;
 
 	/**
-	* 创建者
-	*/
+	 *  单位用量
+	 */
+	private String unitUsage;
+
+	/**
+	 *   损耗
+	 */
+	private String  lossRatio;
+
+	/**
+	 *  物料图片
+	 */
+	private String fabricPhoto;
+
+	/**
+	 * 备注
+	 */
+	@Schema(description="备注")
+	private String remark;
+
+
+	/**
+	 * 状态 (0启用 1禁用)
+	 */
+	@Schema(description="状态 (0启用 1禁用)")
 	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建者")
-    private String createBy;
+	private Integer status;
 
 	/**
-	* 创建时间
-	*/
+	 * 逻辑删除标识 (0未删除, 1已删除)
+	 */
+	@Schema(description="逻辑删除标识 (0未删除, 1已删除)")
+
+	private Integer delFlag;
+
+
+	/**
+	 * 创建人
+	 */
 	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建时间")
-    private LocalDateTime createTime;
+	@Schema(description="创建人")
+	private String createBy;
 
 	/**
-	* 更新者
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新者")
-    private String updateBy;
+	 * 创建时间
+	 */
+	@TableField(fill = FieldFill.INSERT)
+	@Schema(description="创建时间")
+	private LocalDateTime createTime;
 
 	/**
-	* 更新时间
-	*/
+	 * 修改人
+	 */
 	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新时间")
-    private LocalDateTime updateTime;
+	@Schema(description="修改人")
+	private String updateBy;
+
+	/**
+	 * 更新时间
+	 */
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	@Schema(description="更新时间")
+	private LocalDateTime updateTime;
+
+
+
+
 }

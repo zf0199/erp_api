@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("customer")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "客户表")
-public class CustomerDo extends Model<CustomerDo> {
+public class CustomerDo extends BaseDo {
 
 
 	/**
@@ -87,38 +87,5 @@ public class CustomerDo extends Model<CustomerDo> {
     @Schema(description="所属组织")
     private Long org;
 
-	/**
-	* 创建人
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建人")
-    private Long createBy;
 
-	/**
-	* 创建时间
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建时间")
-    private LocalDateTime createTime;
-
-	/**
-	* 更新人
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新人")
-    private Long updateBy;
-
-	/**
-	* 更新时间
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新时间")
-    private LocalDateTime updateTime;
-
-	@TableLogic(value = "0",delval = "1")
-	@Schema(description = "是否删除 0未删除 1删除")
-	private Integer isDelete;
-
-	@Schema(description = "状态 0启用 1禁用")
-	private Integer status;
 }

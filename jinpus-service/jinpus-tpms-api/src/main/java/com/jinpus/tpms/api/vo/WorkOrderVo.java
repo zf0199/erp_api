@@ -1,6 +1,12 @@
 package com.jinpus.tpms.api.vo;
 
+import com.jinpus.tpms.api.domain.OrderFabricDo;
+import com.jinpus.tpms.api.domain.OrderProcessDo;
+import com.jinpus.tpms.api.domain.WorkOrderDo;
 import com.jinpus.tpms.api.dto.OrderColorDto;
+import com.jinpus.tpms.api.dto.OrderFabricDto;
+import com.jinpus.tpms.api.dto.OrderPartDto;
+import lombok.Data;
 
 import java.util.List;
 
@@ -11,7 +17,17 @@ import java.util.List;
  * @version: 1.0
  * @description:
  */
-public class WorkOrderVo {
+@Data
+public class WorkOrderVo  extends WorkOrderDo {
+
+	private List<OrderColorDto> orderColors;
+
+
+	private List<OrderFabricVo> orderFabricVo;
+
+	private List<OrderPartDto> orderPartDtos;
+
+	private OrderProcessDo orderProcessDos;
 
 
 }

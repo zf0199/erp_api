@@ -1,6 +1,7 @@
 package com.jinpus.tpms.api.dto;
 
 import com.jinpus.tpms.api.domain.OrderColorDo;
+import com.jinpus.tpms.api.domain.OrderProcessDo;
 import com.jinpus.tpms.api.domain.OrderSizeDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
 import lombok.Data;
@@ -17,6 +18,15 @@ import java.util.List;
 @Data
 public class WorkOrderDto extends WorkOrderDo {
 
+
 	private List<OrderColorDto> orderColors;
+
+
+	private List<OrderFabricDto> orderFabricDto;
+
+
+	private List<OrderPartDto>  orderPartDto;
+
+	private OrderProcessDo orderProcessDos;
 
 }

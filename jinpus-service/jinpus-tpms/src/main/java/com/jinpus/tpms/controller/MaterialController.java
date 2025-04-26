@@ -59,6 +59,7 @@ public class MaterialController {
 								.or()
 								.like( ObjectUtils.isNotEmpty(material.getName()),MaterialDo::getNo, material.getName())
 								.eq(ObjectUtils.isNotEmpty(material.getMaterialTypeId()),MaterialDo::getMaterialTypeId,t.getMaterialTypeId())
+								.eq(ObjectUtils.isNotEmpty(material.getMaterialCategory()),MaterialDo::getMaterialCategory,t.getMaterialCategory())
 								.orderByDesc(MaterialDo::getCreateTime)
 				);
 		return R.ok(materialService.page(page, wrapper));

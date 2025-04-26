@@ -18,3 +18,8 @@ spring:
       - nacos:${spring.application.name}-@profiles.active@.yml
 
 
+
+mybatis-plus:
+  mapper-locations: classpath*:/com.jinpus.tpms.mapper.xml/*.xml
+
+

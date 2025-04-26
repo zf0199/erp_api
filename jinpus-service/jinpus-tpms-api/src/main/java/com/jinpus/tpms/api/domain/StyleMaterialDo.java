@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("style_material")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "款类默认物料表")
-public class StyleMaterialDo extends Model<StyleMaterialDo> {
+public class StyleMaterialDo extends BaseDo {
 
 
 	/**
@@ -107,11 +107,6 @@ public class StyleMaterialDo extends Model<StyleMaterialDo> {
     @Schema(description="物料分类")
     private Long materialStyleId2;
 
-	/**
-	* 备注
-	*/
-    @Schema(description="备注")
-    private String remake;
 
 	/**
 	* 设计单位
@@ -131,43 +126,9 @@ public class StyleMaterialDo extends Model<StyleMaterialDo> {
     @Schema(description="克重")
     private String weight;
 
-	/**
-	* 逻辑删除标识 (0未删除, 1已删除)
-	*/
-    @Schema(description="逻辑删除标识 (0未删除, 1已删除)")
-    private Integer isDel;
 
-	/**
-	* 状态 (0启用 1禁用)
-	*/
-    @Schema(description="状态 (0启用 1禁用)")
-    private Integer status;
 
-	/**
-	* 创建人
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建人")
-    private String createBy;
 
-	/**
-	* 创建时间
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建时间")
-    private LocalDateTime createTime;
 
-	/**
-	* 修改人
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="修改人")
-    private String updateBy;
 
-	/**
-	* 更新时间
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新时间")
-    private LocalDateTime updateTime;
 }

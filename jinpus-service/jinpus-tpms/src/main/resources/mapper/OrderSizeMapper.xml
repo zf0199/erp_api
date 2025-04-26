@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.jinpus.tpms.mapper.OrderSizeMapper">
+	<select id="selectOrderSizeDistinctSize" resultType="com.jinpus.tpms.api.domain.OrderSizeDo">
+        SELECT *
+        FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY size_name ORDER BY create_time DESC) AS rn
+              FROM order_size
+              WHERE work_order_id = #{workOrderId}) t
+        WHERE t.rn = 1
+		ORDER BY t.sort desc
+
+    </select>
+
+
+
+
+
+
+
+</mapper>

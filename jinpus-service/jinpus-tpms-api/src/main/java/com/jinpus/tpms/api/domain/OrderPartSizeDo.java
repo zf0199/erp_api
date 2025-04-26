@@ -3,44 +3,39 @@ package com.jinpus.tpms.api.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
 /**
- * @className: OrderSizeDo
+ * @className: OrderPartSizeDo
  * @author: zf
- * @date: 2025/4/15 9:44
+ * @date: 2025/4/23 15:41
  * @version: 1.0
- * @description:
+ * @description:  制单部位尺寸表
  */
+
 @Data
-@TableName("order_size")
-@EqualsAndHashCode()
-@Schema(description = "制单尺码表")
-public class OrderSizeDo   {
+@TableName("order_part_size")
+public class OrderPartSizeDo  {
 
-
+	/* id */
 	@TableId(type = IdType.ASSIGN_ID)
-	@Schema(description = "id")
 	private Long id;
 
-	@Schema(description = "制单id")
-	private Long workOrderId;
+	/* 制单id */
+	private  Long workOrderId;
 
-	@Schema(description = "制单颜色id")
-	private Long orderColorId;
+	/*制单部位id */
+	private Long orderPartId;
 
-	@Schema(description = "尺码")
+	/* 尺寸名称 */
 	private String sizeName;
 
-	@Schema(description = "尺码数量")
-	private String sizeNum;
+	/* 洗前尺寸 */
+	private String preWash;
 
-	/**
-	 *   排序
-	 */
-	private Integer sort;
+	/* 成衣尺寸 */
+	private String finishedGarment;
 
 	/**
 	 * 备注
@@ -60,7 +55,8 @@ public class OrderSizeDo   {
 	 * 逻辑删除标识 (0未删除, 1已删除)
 	 */
 	@Schema(description="逻辑删除标识 (0未删除, 1已删除)")
-
+//	@TableLogic
+//	@TableField(fill = FieldFill.INSERT)
 	private Integer delFlag;
 
 
@@ -91,8 +87,6 @@ public class OrderSizeDo   {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	@Schema(description="更新时间")
 	private LocalDateTime updateTime;
-
-
 
 
 }

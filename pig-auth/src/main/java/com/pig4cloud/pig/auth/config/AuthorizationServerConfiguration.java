@@ -134,12 +134,16 @@ public class AuthorizationServerConfiguration {
 	 */
 	@Bean
 	public AuthenticationConverter accessTokenRequestConverter() {
-		return new DelegatingAuthenticationConverter(Arrays.asList(
+		return new DelegatingAuthenticationConverter(
+				Arrays.asList(
 				new OAuth2ResourceOwnerPasswordAuthenticationConverter(),
-				new OAuth2ResourceOwnerSmsAuthenticationConverter(), new OAuth2RefreshTokenAuthenticationConverter(),
+				new OAuth2ResourceOwnerSmsAuthenticationConverter(),
+				new OAuth2RefreshTokenAuthenticationConverter(),
 				new OAuth2ClientCredentialsAuthenticationConverter(),
 				new OAuth2AuthorizationCodeAuthenticationConverter(),
-				new OAuth2AuthorizationCodeRequestAuthenticationConverter()));
+				new OAuth2AuthorizationCodeRequestAuthenticationConverter()
+				)
+		);
 	}
 
 	/**

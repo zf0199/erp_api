@@ -1,0 +1,17 @@
+package com.jinpus.tpms.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.jinpus.tpms.api.domain.CutOrderBedDo;
+import com.jinpus.tpms.api.domain.CutOrderColorDo;
+import com.jinpus.tpms.api.domain.CutOrderDo;
+
+/**
+ * @className: CutOrderColorService
+ * @author: zf
+ * @date: 2025/4/28 16:29
+ * @version: 1.0
+ * @description:
+ */
+
+public interface CutOrderColorService extends IService<CutOrderColorDo> {
+}

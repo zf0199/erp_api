@@ -2,6 +2,7 @@ package com.jinpus.tpms.controller;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -14,7 +15,8 @@ import com.pig4cloud.plugin.excel.annotation.ResponseExcel;
 import com.pig4cloud.plugin.excel.annotation.RequestExcel;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import com.pig4cloud.pig.common.security.annotation.HasPermission;
+
+import org.apache.commons.lang3.ObjectUtils;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpHeaders;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -56,7 +58,14 @@ public class WorkOrderController {
 //    @HasPermission("basic_workOrder_view")
     public R getWorkOrderPage(@ParameterObject Page page, @ParameterObject WorkOrderDo workOrder) {
         LambdaQueryWrapper<WorkOrderDo> wrapper = Wrappers.lambdaQuery();
-		wrapper.orderByDesc(WorkOrderDo::getCreateTime);
+		wrapper.eq(ObjectUtils.isNotEmpty(workOrder.getStyleId()),WorkOrderDo::getStyleId,workOrder.getStyleId())
+				.or()
+				.like(ObjectUtils.isNotEmpty(workOrder.getOrderNo()),WorkOrderDo::getOrderNo,workOrder.getOrderNo())
+				.or()
+				.eq(ObjectUtils.isNotEmpty(workOrder.getCustomerId()),WorkOrderDo::getCustomerId,workOrder.getCustomerId())
+				.or()
+				.eq(ObjectUtils.isNotEmpty(workOrder.getStyleNo()),WorkOrderDo::getStyleNo,workOrder.getStyleNo())
+		.orderByDesc(WorkOrderDo::getCreateTime);
         return R.ok(workOrderService.page(page, wrapper));
     }
 
@@ -154,6 +163,5 @@ public class WorkOrderController {
 	@RequestMapping(value = "/workOrder/colorAndSize",method = GET)
 	public R colorAndSize(Long id){
 	return R.ok(workOrderService.getColorAndSize(id))	;
-
 	}
 }

@@ -1,7 +1,11 @@
 package com.jinpus.tpms.controller;
 
 
+import com.jinpus.tpms.api.domain.UnitDo;
 import org.apache.commons.math3.fraction.Fraction;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @className: TestMath
@@ -12,7 +16,11 @@ import org.apache.commons.math3.fraction.Fraction;
  */
 public class TestMath {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MalformedURLException {
+
+		var test = new UnitDo();
+
+		System.out.println(test);
 
 		Fraction f1 = new Fraction(2, 3);  // 2/3
 		Fraction f2 = new Fraction(3, 4);  // 3/4
@@ -61,4 +69,7 @@ public class TestMath {
 			return wholePart + " " + numerator + "/" + denominator; // 带分数
 		}
 	}
+
+
+	public record Test2(String name,int age){}
 }

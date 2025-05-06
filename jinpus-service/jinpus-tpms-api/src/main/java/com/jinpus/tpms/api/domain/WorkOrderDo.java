@@ -68,7 +68,7 @@ public class WorkOrderDo extends BaseDo  {
 	* 单位
 	*/
     @Schema(description="单位")
-    private Integer unit;
+    private Long unit;
 
 	/**
 	* 单价

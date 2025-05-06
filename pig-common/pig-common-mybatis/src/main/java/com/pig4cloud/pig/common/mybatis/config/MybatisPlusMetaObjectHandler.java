@@ -71,7 +71,13 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 		// 3. field 类型相同时设置
 		Class<?> getterType = metaObject.getGetterType(fieldName);
 		if (fieldName.equals("delFlag")){
-			metaObject.setValue(fieldName, fieldVal);
+			if (ClassUtils.isAssignable(String.class,getterType)){
+				metaObject.setValue(fieldName, "0");
+			}
+			if (ClassUtils.isAssignable(Integer.class,getterType)){
+				metaObject.setValue(fieldName, 0);
+			}
+
 		}else {
 			if (ClassUtils.isAssignableValue(getterType, fieldVal)) {
 				metaObject.setValue(fieldName, fieldVal);

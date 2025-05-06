@@ -27,6 +27,6 @@ public class WorkOrderDto extends WorkOrderDo {
 
 	private List<OrderPartDto>  orderPartDto;
 
-	private OrderProcessDo orderProcessDos;
+	private OrderProcessDo orderProcessDo;
 
 }

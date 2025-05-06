@@ -1,7 +1,10 @@
 package com.jinpus.tpms.api.vo;
 
+import com.jinpus.tpms.api.domain.CutOrderBedDo;
 import com.jinpus.tpms.api.domain.CutOrderDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
+import com.jinpus.tpms.api.dto.CutOrderBedDto;
+import lombok.Data;
 
 import java.util.List;
 
@@ -12,8 +15,11 @@ import java.util.List;
  * @version: 1.0
  * @description:
  */
+@Data
 public class CutOrderVo extends CutOrderDo {
 
 
-	private List<WorkOrderDo> workOrderDo;
+	private WorkOrderDo workOrderDo;
+
+	private List<CutOrderBedDo> cutOrderBedDo;
 }

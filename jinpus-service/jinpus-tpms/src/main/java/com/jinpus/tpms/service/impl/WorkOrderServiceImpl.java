@@ -11,6 +11,8 @@ import com.jinpus.tpms.api.vo.FabricColorSizeVo;
 import com.jinpus.tpms.api.vo.OrderFabricVo;
 import com.jinpus.tpms.api.vo.WorkOrderVo;
 import com.jinpus.tpms.mapper.*;
+import com.jinpus.tpms.service.CutOrderService;
+import com.jinpus.tpms.service.OrderProcedureService;
 import com.jinpus.tpms.service.WorkOrderService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -53,14 +55,36 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 
 	private final OrderProcessMapper orderProcessMapper;
 
+	private final CutOrderMapper cutOrderMapper;
+
+	private final OrderProcedureMapper orderProcedureMapper;
+
 	@Override
 	public Long add(WorkOrderDto workOrderDto) {
 
 		WorkOrderDo workOrderDo = new WorkOrderDo();
 		BeanUtils.copyProperties(workOrderDto, workOrderDo);
 		this.save(workOrderDo);
-
 		Long workOrderId = workOrderDo.getId();
+
+		// 新增裁床单
+		CutOrderDo cutOrderDo = new CutOrderDo();
+		cutOrderDo.setWorkOrderId(workOrderId);
+		cutOrderDo.setCutOrderNo("C"+workOrderDo.getOrderNo().toUpperCase());
+		cutOrderDo.setProgress(0);
+
+		cutOrderMapper.insert(cutOrderDo);
+		Long cutOrderId = cutOrderDo.getId();
+
+		// 新增工序工价
+		OrderProcedureDo orderProcedureDo = new OrderProcedureDo();
+		orderProcedureDo.setWorkOrderId(workOrderId);
+		orderProcedureDo.setCutOrderId(cutOrderId);
+		orderProcedureDo.setNum(Integer.valueOf(workOrderDo.getQuantity()));
+		orderProcedureDo.setProcedurePrice(0);
+		orderProcedureDo.setCutNum(0);
+		orderProcedureDo.setBedNum(0);
+		orderProcedureMapper.insert(orderProcedureDo);
 
 		Optional.ofNullable(workOrderDto.getOrderColors()).filter(l -> !l.isEmpty()).ifPresent(e -> e.forEach(t -> {
 			List<OrderColorDto> orderColors = workOrderDto.getOrderColors();
@@ -112,7 +136,7 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 			case "3" -> updateFabric(tag, workOrderId, workOrderDto.getOrderFabricDto());
 			case "4" -> updateFabric(tag, workOrderId, workOrderDto.getOrderFabricDto());
 			case "5" -> updateOrderPart(workOrderId, workOrderDto.getOrderPartDto());
-			case "6" -> updateOrderProcess(workOrderId, workOrderDto.getOrderProcessDos());
+			case "6" -> updateOrderProcess(workOrderId, workOrderDto.getOrderProcessDo());
 			default -> throw new IllegalArgumentException("不支持的tag类型: " + tag);
 
 		}

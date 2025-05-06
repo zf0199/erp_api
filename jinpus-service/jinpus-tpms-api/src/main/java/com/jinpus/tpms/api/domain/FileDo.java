@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("file")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "文件表")
-public class FileDo extends Model<FileDo> {
+public class FileDo extends BaseDo {
 
 
 	/**
@@ -69,39 +69,5 @@ public class FileDo extends Model<FileDo> {
     @Schema(description="文件路径")
     private String fileUrl;
 
-	/**
-	* 创建人
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建人")
-    private String createBy;
 
-	/**
-	* 创建时间
-	*/
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="创建时间")
-    private LocalDateTime createTime;
-
-	/**
-	* 更新人
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新人")
-    private String updateBy;
-
-	/**
-	* 更新时间
-	*/
-	@TableField(fill = FieldFill.INSERT_UPDATE)
-    @Schema(description="更新时间")
-    private LocalDateTime updateTime;
-
-	/**
-	* 删除表示0存在 1已删除
-	*/
-    @TableLogic
-	@TableField(fill = FieldFill.INSERT)
-    @Schema(description="删除表示0存在 1已删除")
-    private String delFlag;
 }

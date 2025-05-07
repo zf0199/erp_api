@@ -3,6 +3,7 @@ package com.jinpus.tpms.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinpus.tpms.api.domain.OrderProcedureDo;
+import com.jinpus.tpms.api.dto.OrderProcedureDto;
 import com.jinpus.tpms.api.vo.OrderProcedureVo;
 
 /**
@@ -15,10 +16,13 @@ import com.jinpus.tpms.api.vo.OrderProcedureVo;
 public interface OrderProcedureService extends IService<OrderProcedureDo> {
 
 
-	 Page<OrderProcedureDo> getPage(Page page);
+	 Page<OrderProcedureVo> getPage(Page<OrderProcedureDo> page,OrderProcedureDo orderProcedureDo);
 
 
 	OrderProcedureVo getDetail(Long id);
+
+
+	void update(OrderProcedureDto orderProcedureDto);
 
 
 }

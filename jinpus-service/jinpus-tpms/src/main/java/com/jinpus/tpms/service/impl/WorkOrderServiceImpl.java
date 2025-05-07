@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -80,8 +81,8 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 		OrderProcedureDo orderProcedureDo = new OrderProcedureDo();
 		orderProcedureDo.setWorkOrderId(workOrderId);
 		orderProcedureDo.setCutOrderId(cutOrderId);
-		orderProcedureDo.setNum(Integer.valueOf(workOrderDo.getQuantity()));
-		orderProcedureDo.setProcedurePrice(0);
+		orderProcedureDo.setOrderNum(Integer.valueOf(workOrderDo.getQuantity()));
+		orderProcedureDo.setProcedurePrice(BigDecimal.ZERO);
 		orderProcedureDo.setCutNum(0);
 		orderProcedureDo.setBedNum(0);
 		orderProcedureMapper.insert(orderProcedureDo);

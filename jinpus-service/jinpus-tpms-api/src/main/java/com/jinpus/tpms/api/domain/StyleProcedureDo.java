@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @TableName("style_procedure")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "款类默认工序表")
-public class StyleProcedureDo extends BaseDo {
+public class StyleProcedureDo extends BaseDetailDo {
 
 
 	/**

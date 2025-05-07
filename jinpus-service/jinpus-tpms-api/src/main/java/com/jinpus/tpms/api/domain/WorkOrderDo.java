@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -74,7 +75,7 @@ public class WorkOrderDo extends BaseDo  {
 	* 单价
 	*/
     @Schema(description="单价")
-    private String price;
+    private BigDecimal price;
 
 	/**
 	* 币种

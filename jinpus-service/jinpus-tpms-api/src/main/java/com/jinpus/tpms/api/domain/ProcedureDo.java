@@ -37,7 +37,7 @@ public class ProcedureDo extends BaseDo {
 	* 工序类型
 	*/
     @Schema(description="工序类型")
-    private Long procedureId;
+    private Long procedureTypeId;
 
 	/**
 	* 工序名称

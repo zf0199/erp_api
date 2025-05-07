@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("style_part")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "款类部位表")
-public class StylePartDo extends BaseDo {
+public class StylePartDo extends BaseDetailDo {
 
 
 	/**

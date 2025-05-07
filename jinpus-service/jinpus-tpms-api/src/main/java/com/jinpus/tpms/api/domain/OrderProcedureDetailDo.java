@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @className: OrderProcedureDetailDo
  * @author: zf
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 @Data
 @TableName("order_procedure_detail")
-public class OrderProcedureDetailDo {
+public class OrderProcedureDetailDo extends BaseDetailDo {
 
 
 	/**
@@ -29,6 +31,11 @@ public class OrderProcedureDetailDo {
 	private Long orderProcedureId;
 
 	/**
+	 *  工序类型id
+	 */
+	private Long procedureTypeId;
+
+	/**
 	 * 工序编号
 	 */
 	private String no;
@@ -41,7 +48,7 @@ public class OrderProcedureDetailDo {
 	/**
 	 * 工价
 	 */
-	private String price;
+	private BigDecimal price;
 	/**
 	 * 补贴率
 	 */

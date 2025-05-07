@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @TableName("style_material")
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "款类默认物料表")
-public class StyleMaterialDo extends BaseDo {
+public class StyleMaterialDo extends BaseDetailDo {
 
 
 	/**

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @className: OrderProcedure
  * @author: zf
@@ -42,7 +44,7 @@ public class OrderProcedureDo  extends BaseDo{
 	/**
 	 *   数量
 	 */
-	private Integer num;
+	private Integer orderNum;
 
 	/**
 	 *   工序名称
@@ -53,7 +55,7 @@ public class OrderProcedureDo  extends BaseDo{
 	/**
 	 *    工序总价
 	 */
-	private Integer procedurePrice;
+	private BigDecimal procedurePrice;
 
 	/**
 	 *  工序同步时间

@@ -1,6 +1,5 @@
 package com.jinpus.tpms.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
@@ -38,13 +37,7 @@ public class CutOrderServiceImpl extends ServiceImpl<CutOrderMapper, CutOrderDo>
 	private final WorkOrderService workOrderService;
 	private final WorkOrderMapper workOrderMapper;
 
-
-
 	private final CutOrderBedService cutOrderBedService;
-
-	private  final CutOrderColorService cutOrderColorService;
-
-	private  final CutOrderSizeService cutOrderSizeService;
 
 	private final CutOrderBedMapper cutOrderBedMapper;
 
@@ -76,7 +69,10 @@ public class CutOrderServiceImpl extends ServiceImpl<CutOrderMapper, CutOrderDo>
 		Map<Long, CutOrderDo> cutOrderMap = records.stream().collect(Collectors.toMap(CutOrderDo::getWorkOrderId, e -> e));
 		LambdaQueryWrapper<WorkOrderDo> workOrderDoWrapper = Wrappers.lambdaQuery();
 		workOrderDoWrapper.in(WorkOrderDo::getId,list1)
-				.eq(ObjectUtils.isNotEmpty(cutOrderDo.getOrderNo()) ,WorkOrderDo::getOrderNo,cutOrderDo.getOrderNo());
+				.like(ObjectUtils.isNotEmpty(cutOrderDo.getOrderNo()) ,WorkOrderDo::getOrderNo,cutOrderDo.getOrderNo())
+				.or()
+				.eq(ObjectUtils.isNotEmpty(cutOrderDo.getStyleId()),WorkOrderDo::getStyleId,cutOrderDo.getStyleId());
+
 		List<WorkOrderDo> workOrderDos = workOrderMapper.selectList(workOrderDoWrapper);
 
 		List<CutOrderVo> list2 = workOrderDos.stream().map(e -> {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinpus.tpms.api.domain.CutOrderDo;
 import com.jinpus.tpms.api.domain.OrderProcedureDo;
+import com.jinpus.tpms.api.dto.OrderProcedureDto;
 import com.jinpus.tpms.service.OrderProcedureService;
 import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * @className: OrderProcedureController
@@ -42,8 +42,11 @@ public class OrderProcedureController {
 	 * @return 查询结果
 	 */
 	@RequestMapping(value = "/orderProcedure/page",method = GET)
-	public R getOrderProcedurePage(@ParameterObject Page page, @ParameterObject OrderProcedureDo orderProcedureDo){
-		return R.ok(orderProcedureService.getPage(page));
+	public R getOrderProcedurePage(@ParameterObject Page<OrderProcedureDo> page, @ParameterObject OrderProcedureDo orderProcedureDo){
+
+		LambdaQueryWrapper<OrderProcedureDo> orderProcedureDoWrapper = Wrappers.lambdaQuery();
+		orderProcedureDoWrapper.orderByDesc(OrderProcedureDo::getCreateTime);
+		return R.ok(orderProcedureService.getPage(page,orderProcedureDo));
 	}
 
 //
@@ -66,7 +69,14 @@ public class OrderProcedureController {
 	}
 
 
-
-
+	/**
+	 *   修改工序工价详情
+	 * @return 查询结果
+	 */
+	@RequestMapping(value = "/orderProcedure",method = PUT)
+	public R update(@RequestBody OrderProcedureDto orderProcedureDto){
+		orderProcedureService.update(orderProcedureDto);
+		return R.ok();
+	}
 
 }

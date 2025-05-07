@@ -117,7 +117,9 @@ public class StyleServiceImpl extends ServiceImpl<StyleMapper, StyleDo> implemen
 //			e.setId(IdWorker.getId());
 			e.setStyleId(styleDto.getId());
 		});
-		styleProcedureService.saveBatch(styleProcedures);
+
+		// TAG update :  插入或更新方法 报主键重复
+		styleProcedureService.saveOrUpdateBatch(styleProcedures);
 
 		List<StylePartDo> styleParts = styleDto.getStyleParts();
 

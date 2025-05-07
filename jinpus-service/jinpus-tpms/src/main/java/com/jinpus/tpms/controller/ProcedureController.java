@@ -58,7 +58,7 @@ public class ProcedureController {
 								.like(ObjectUtils.isNotEmpty(t.getName()), ProcedureDo::getNo,t.getName())
 								.or()
 								.orderByDesc(ProcedureDo::getCreateTime)
-								.eq(ObjectUtils.isNotEmpty(t.getProcedureId()), ProcedureDo::getProcedureId,t.getProcedureId())
+								.eq(ObjectUtils.isNotEmpty(t.getProcedureTypeId()), ProcedureDo::getProcedureTypeId,t.getProcedureTypeId())
 				);
         return R.ok(procedureService.page(page, wrapper));
     }

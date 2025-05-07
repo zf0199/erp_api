@@ -1,12 +1,15 @@
 package com.jinpus.tpms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinpus.tpms.api.domain.OrderProcedureDetailDo;
 import com.jinpus.tpms.api.domain.OrderProcedureDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
+import com.jinpus.tpms.api.dto.OrderProcedureDto;
 import com.jinpus.tpms.api.vo.OrderProcedureVo;
 import com.jinpus.tpms.mapper.OrderProcedureDetailMapper;
 import com.jinpus.tpms.mapper.OrderProcedureMapper;
@@ -16,7 +19,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @className: OrderProcedureServiceImpl
@@ -34,15 +41,19 @@ public class OrderProcedureServiceImpl extends ServiceImpl<OrderProcedureMapper,
 
 	private final OrderProcedureDetailMapper orderProcedureDetailMapper;
 
+	private final OrderProcedureMapper orderProcedureMapper;
+
 
 	@Override
-	public Page<OrderProcedureDo> getPage(Page page) {
+	public Page<OrderProcedureVo> getPage(Page<OrderProcedureDo> page,OrderProcedureDo orderProcedureDo) {
 
 		LambdaQueryWrapper<OrderProcedureDo> orderProcedureWrapper = Wrappers.lambdaQuery();
 		orderProcedureWrapper.orderByDesc(OrderProcedureDo::getCreateTime);
-		Page page1 = this.page(page,orderProcedureWrapper);
 
-		List<OrderProcedureDo> records = page1.getRecords();
+		Page<OrderProcedureDo> orderProcedureDoPage = this.page(page,orderProcedureWrapper);
+		List<OrderProcedureDo> records = orderProcedureDoPage.getRecords();
+		Page<OrderProcedureVo> orderProcedureVoPage = new Page<>();
+		BeanUtils.copyProperties(orderProcedureDoPage,orderProcedureVoPage);
 
 		List<OrderProcedureVo> list = records.stream().map(e -> {
 			WorkOrderDo workOrderDo = workOrderMapper.selectById(e.getWorkOrderId());
@@ -51,9 +62,8 @@ public class OrderProcedureServiceImpl extends ServiceImpl<OrderProcedureMapper,
 			orderProcedureVo.setWorkOrderDo(workOrderDo);
 			return orderProcedureVo;
 		}).toList();
-		page1.setRecords(list);
-
-		return page1;
+		orderProcedureVoPage.setRecords(list);
+		return orderProcedureVoPage;
 	}
 
 	@Override
@@ -71,6 +81,42 @@ public class OrderProcedureServiceImpl extends ServiceImpl<OrderProcedureMapper,
 		List<OrderProcedureDetailDo> orderProcedureDetailDos = orderProcedureDetailMapper.selectList(orderProcedureDetailWrapper);
 		orderProcedureVo.setOrderProcedureDetailDo(orderProcedureDetailDos);
 		return orderProcedureVo;
+	}
+
+	@Override
+	public void update(OrderProcedureDto orderProcedureDto) {
+
+
+		Long orderProcedureId = orderProcedureDto.getId();
+
+		// 删除所有的工序工价明细
+		LambdaQueryWrapper<OrderProcedureDetailDo> orderProcedureDetailDoWrapper = Wrappers.lambdaQuery();
+		orderProcedureDetailDoWrapper.eq(OrderProcedureDetailDo::getOrderProcedureId,orderProcedureId);
+		orderProcedureDetailMapper.delete(orderProcedureDetailDoWrapper);
+
+		List<OrderProcedureDetailDo> orderProcedureDetailDos = orderProcedureDto.getOrderProcedureDetailDos();
+
+		int size = orderProcedureDetailDos.size();
+		BigDecimal reduce = Optional.ofNullable(orderProcedureDetailDos)
+				.orElse(Collections.emptyList())
+				.stream()
+				.map(OrderProcedureDetailDo::getPrice)
+				.filter(Objects::nonNull)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		LambdaUpdateWrapper<OrderProcedureDo> orderProcedureDoUpdateWrapper = Wrappers.lambdaUpdate();
+
+		orderProcedureDoUpdateWrapper.eq(OrderProcedureDo::getCutOrderId,orderProcedureId)
+				.set(OrderProcedureDo::getProcedureNum,size)
+						.set(OrderProcedureDo::getProcedurePrice,reduce);
+		orderProcedureMapper.update(orderProcedureDoUpdateWrapper);
+
+
+		// 新增
+		orderProcedureDetailDos.forEach(e->{
+			e.setOrderProcedureId(orderProcedureId);
+			orderProcedureDetailMapper.insert(e);
+		});
 	}
 
 

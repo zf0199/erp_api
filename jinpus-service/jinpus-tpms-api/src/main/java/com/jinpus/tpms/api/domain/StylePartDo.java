@@ -35,20 +35,16 @@ public class StylePartDo extends BaseDetailDo {
 	/**
 	* 序号
 	*/
-    @Schema(description="序号")
+    @Schema(description="部位编号")
     private String no;
 
-	/**
-	* 部位编号
-	*/
-    @Schema(description="部位编号")
-    private String partNo;
+
 
 	/**
 	* 部位名称
 	*/
     @Schema(description="部位名称")
-    private String part;
+    private String partName;
 
 	/**
 	* 公差
@@ -60,13 +56,13 @@ public class StylePartDo extends BaseDetailDo {
 	* 度法
 	*/
     @Schema(description="度法")
-    private String dimenMethod;
+    private String dimMethod;
 
 	/**
 	* 基准尺寸
 	*/
     @Schema(description="基准尺寸")
-    private String standardSize;
+    private String basicSize;
 
 
 

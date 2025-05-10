@@ -6,25 +6,19 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinpus.tpms.api.domain.*;
 import com.jinpus.tpms.api.dto.*;
-import com.jinpus.tpms.api.vo.ColorSizeVo;
 import com.jinpus.tpms.api.vo.FabricColorSizeVo;
 import com.jinpus.tpms.api.vo.OrderFabricVo;
 import com.jinpus.tpms.api.vo.WorkOrderVo;
 import com.jinpus.tpms.mapper.*;
-import com.jinpus.tpms.service.CutOrderService;
-import com.jinpus.tpms.service.OrderProcedureService;
 import com.jinpus.tpms.service.WorkOrderService;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @className: WorkOrderService
@@ -60,6 +54,14 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 
 	private final OrderProcedureMapper orderProcedureMapper;
 
+	private final StyleMaterialMapper styleMaterialMapper;
+
+	private final StylePartMapper stylePartMapper;
+
+	private final StyleProcedureMapper  styleProcedureMapper;
+
+	private final OrderProcedureDetailMapper orderProcedureDetailMapper;
+
 	@Override
 	public Long add(WorkOrderDto workOrderDto) {
 
@@ -67,13 +69,13 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 		BeanUtils.copyProperties(workOrderDto, workOrderDo);
 		this.save(workOrderDo);
 		Long workOrderId = workOrderDo.getId();
+		Long styleId = workOrderDto.getStyleId();
 
 		// 新增裁床单
 		CutOrderDo cutOrderDo = new CutOrderDo();
 		cutOrderDo.setWorkOrderId(workOrderId);
-		cutOrderDo.setCutOrderNo("C"+workOrderDo.getOrderNo().toUpperCase());
+		cutOrderDo.setCutOrderNo("C" + workOrderDo.getOrderNo().toUpperCase());
 		cutOrderDo.setProgress(0);
-
 		cutOrderMapper.insert(cutOrderDo);
 		Long cutOrderId = cutOrderDo.getId();
 
@@ -81,26 +83,101 @@ public class WorkOrderServiceImpl extends ServiceImpl<WorkOrderMapper, WorkOrder
 		OrderProcedureDo orderProcedureDo = new OrderProcedureDo();
 		orderProcedureDo.setWorkOrderId(workOrderId);
 		orderProcedureDo.setCutOrderId(cutOrderId);
-		orderProcedureDo.setOrderNum(Integer.valueOf(workOrderDo.getQuantity()));
 		orderProcedureDo.setProcedurePrice(BigDecimal.ZERO);
 		orderProcedureDo.setCutNum(0);
 		orderProcedureDo.setBedNum(0);
 		orderProcedureMapper.insert(orderProcedureDo);
+		Long orderProcedureId = orderProcedureDo.getId();
 
-		Optional.ofNullable(workOrderDto.getOrderColors()).filter(l -> !l.isEmpty()).ifPresent(e -> e.forEach(t -> {
-			List<OrderColorDto> orderColors = workOrderDto.getOrderColors();
-			orderColors.forEach(s -> {
-				OrderColorDo orderColorDo = new OrderColorDo();
-				BeanUtils.copyProperties(s, orderColorDo);
-				orderColorMapper.insert(orderColorDo);
-				Long id = orderColorDo.getId();
-				List<OrderSizeDo> orderSizes = t.getOrderSizes();
-				orderSizes.forEach(m -> {
-					m.setOrderColorId(id);
-					orderSizeMapper.insert(m);
-				});
-			});
-		}));
+		LambdaQueryWrapper<StyleProcedureDo> styleProcedureDoWrapper = Wrappers.lambdaQuery();
+		styleProcedureDoWrapper.eq(StyleProcedureDo::getStyleId, styleId);
+
+
+		List<StyleProcedureDo> styleProcedureDos = styleProcedureMapper.selectList(styleProcedureDoWrapper);
+		styleProcedureDos.stream().forEach(e->{
+			OrderProcedureDetailDo orderProcedureDetailDo = new OrderProcedureDetailDo();
+			orderProcedureDetailDo.setOrderProcedureId(orderProcedureId);
+			// 工序代号
+			orderProcedureDetailDo.setNo(e.getNo());
+			// 工序名称
+			orderProcedureDetailDo.setName(e.getName());
+			// 工价
+			orderProcedureDetailDo.setPrice(e.getPrice());
+			// 津贴比例
+			orderProcedureDetailDo.setSubsidyRate(e.getSubsidyRate());
+			// 补贴金额
+			orderProcedureDetailDo.setSubsidyAmount(e.getSubsidyAmount());
+			orderProcedureDetailDo.setRemark(e.getRemark());
+			orderProcedureDetailDo.setProcedureTypeId(e.getProcedureTypeId());
+			orderProcedureDetailMapper.insert(orderProcedureDetailDo);
+
+		});
+
+//		Optional.ofNullable(workOrderDto.getOrderColors()).filter(l -> !l.isEmpty()).ifPresent(e -> e.forEach(t -> {
+//			List<OrderColorDto> orderColors = workOrderDto.getOrderColors();
+//			orderColors.forEach(s -> {
+//				OrderColorDo orderColorDo = new OrderColorDo();
+//				BeanUtils.copyProperties(s, orderColorDo);
+//				orderColorMapper.insert(orderColorDo);
+//				Long id = orderColorDo.getId();
+//				List<OrderSizeDo> orderSizes = t.getOrderSizes();
+//				orderSizes.forEach(m -> {
+//					m.setOrderColorId(id);
+//					orderSizeMapper.insert(m);
+//				});
+//			});
+//		}));
+
+
+
+		// 同步款类物料到制单
+		LambdaQueryWrapper<StyleMaterialDo> styleMaterialDoWrapper = Wrappers.lambdaQuery();
+		LambdaQueryWrapper<StyleMaterialDo> eq = styleMaterialDoWrapper.eq(StyleMaterialDo::getStyleId, styleId);
+		List<StyleMaterialDo> styleMaterialDos = styleMaterialMapper.selectList(eq);
+		 styleMaterialDos.stream().forEach(e -> {
+			OrderFabricDo orderFabricDo = new OrderFabricDo();
+			// 制单id
+			orderFabricDo.setWorkOrderId(workOrderId);
+			// 物料名称
+			orderFabricDo.setName(e.getName());
+			// 物料编号
+			orderFabricDo.setNo(e.getNo());
+
+			// 物料大类
+			orderFabricDo.setMaterialTypeId(e.getMaterialTypeId());
+			// 规格成分
+			orderFabricDo.setComposition(e.getComposition());
+			// 布封
+			orderFabricDo.setWidht(e.getWidht());
+			// 克重
+			orderFabricDo.setWeight(e.getWeight());
+			// 单价
+			orderFabricDo.setPrice(e.getPrice());
+			orderFabricDo.setRemark(e.getRemark());
+			 orderFabricDo.setMaterialCategory(e.getMaterialCategory());
+			 orderFabricDo.setIsColorScheme(0);
+			 orderFabricDo.setIsMatchingSize(0);
+			orderFabricMapper.insert(orderFabricDo);
+		});
+
+		 // 同步款类制单尺寸到制单
+		LambdaQueryWrapper<StylePartDo> stylePartDoWrapper = Wrappers.lambdaQuery();
+		stylePartDoWrapper.eq(StylePartDo::getStyleId, styleId);
+		List<StylePartDo> stylePartDos = stylePartMapper.selectList(stylePartDoWrapper);
+		stylePartDos.forEach(e->{
+			OrderPartDo orderPartDo = new OrderPartDo();
+			orderPartDo.setWorkOrderId(workOrderId);
+			orderPartDo.setNo(e.getNo());
+			orderPartDo.setPartName(e.getPartName());
+			orderPartDo.setDimMethod(e.getDimMethod());
+			orderPartDo.setBasicSize(e.getBasicSize());
+
+			orderPartMapper.insert(orderPartDo);
+		});
+
+
+
+
 		return workOrderId;
 	}
 

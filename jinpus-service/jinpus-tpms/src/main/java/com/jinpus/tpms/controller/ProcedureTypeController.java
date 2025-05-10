@@ -21,8 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 生产工序类别表
@@ -110,7 +109,14 @@ public class ProcedureTypeController {
     @DeleteMapping
 //    @HasPermission("basic_procedureType_del")
     public R removeById(@RequestBody Long[] ids) {
-        return R.ok(procedureTypeService.removeBatchByIds(CollUtil.toList(ids)));
+
+		List<Long> list = Arrays.asList(1911623639888674818l, 1911623703780507650l, 1911623858135089153l);
+		Set<Long> idSet = new HashSet<>(Arrays.asList(ids));
+		boolean exists = list.stream().anyMatch(idSet::contains);
+	if (!exists){
+		return R.ok(procedureTypeService.removeBatchByIds(CollUtil.toList(ids)));
+	}
+      return R.failed("内置参数不允许删除");
     }
 
 

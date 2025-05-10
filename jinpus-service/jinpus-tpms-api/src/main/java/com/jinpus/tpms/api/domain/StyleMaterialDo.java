@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -51,7 +53,7 @@ public class StyleMaterialDo extends BaseDetailDo {
     private Long materialTypeId;
 
 	@Schema(description="物料类型")
-	private Integer type;
+	private Integer materialCategory;
 
 	/**
 	* 物料颜色
@@ -81,7 +83,7 @@ public class StyleMaterialDo extends BaseDetailDo {
 	* 单价
 	*/
     @Schema(description="单价")
-    private Integer price;
+    private BigDecimal price;
 
 	/**
 	* 供应商

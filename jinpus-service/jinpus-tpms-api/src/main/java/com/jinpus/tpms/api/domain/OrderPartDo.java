@@ -3,9 +3,7 @@ package com.jinpus.tpms.api.domain;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.springframework.context.annotation.Description;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
 /**
@@ -47,7 +45,7 @@ public class OrderPartDo extends BaseDo {
 	private String shrinkage;
 
 	/** 度量方法 */
-	private String method;
+	private String dimMethod;
 
 	/**
 	 * 备注

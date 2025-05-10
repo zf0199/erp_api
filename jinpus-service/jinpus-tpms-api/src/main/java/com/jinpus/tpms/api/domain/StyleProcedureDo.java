@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.Serializers;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -49,13 +51,13 @@ public class StyleProcedureDo extends BaseDetailDo {
 	 *  款类工序类型(0,1,2,3)
 	 */
 	@Schema(description="款类工序类型")
-	private Integer type;
+	private Long procedureTypeId;
 
 	/**
 	* 款类工价/每件
 	*/
     @Schema(description="款类工价/每件")
-    private String price;
+    private BigDecimal price;
 
 	/**
 	* 款类补贴率

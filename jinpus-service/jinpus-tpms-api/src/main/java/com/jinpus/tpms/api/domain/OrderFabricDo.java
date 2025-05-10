@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -43,6 +45,8 @@ public class OrderFabricDo  {
 	*/
     @Schema(description="物料编码")
     private String no;
+
+
 
 	/**
 	* 采购单位
@@ -96,7 +100,7 @@ public class OrderFabricDo  {
 	* 单价
 	*/
     @Schema(description="单价")
-    private Integer price;
+    private BigDecimal price;
 
 	/**
 	* 供应商

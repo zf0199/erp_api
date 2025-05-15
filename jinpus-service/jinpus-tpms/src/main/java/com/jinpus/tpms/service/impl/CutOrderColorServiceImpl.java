@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinpus.tpms.api.domain.CutOrderColorDo;
 import com.jinpus.tpms.mapper.CutOrderColorMapper;
 import com.jinpus.tpms.service.CutOrderColorService;
-import com.jinpus.tpms.service.CutOrderService;
 import org.springframework.stereotype.Service;
 
 /**

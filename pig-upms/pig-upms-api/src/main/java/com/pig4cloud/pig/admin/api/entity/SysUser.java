@@ -60,12 +60,24 @@ public class SysUser implements Serializable {
 	@Schema(description = "密码")
 	private String password;
 
+	private String miniAppPassword;
+
 	/**
 	 * 随机盐
 	 */
 	@JsonIgnore
 	@Schema(description = "随机盐")
 	private String salt;
+
+	/**
+	 *   是否允许小程序登录(0允许 1不允许)
+	 */
+	private String allowMiniAppLogin;
+
+	/**
+	 *  是否允许pc登录(0允许 1不允许)
+	 */
+	private String allowPcLogin;
 
 	/**
 	 * 创建人

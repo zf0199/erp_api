@@ -2,7 +2,6 @@ package com.jinpus.tpms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinpus.tpms.api.domain.OrderProcedureDo;
-import lombok.Data;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

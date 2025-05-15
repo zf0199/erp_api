@@ -88,6 +88,8 @@
         u.nickname,
         u.name,
         u.email,
+        u.allow_mini_app_login,
+                 u.allow_pc_login,
         u.create_by,
         u.create_time  ucreate_time,
         u.update_time  uupdate_time,

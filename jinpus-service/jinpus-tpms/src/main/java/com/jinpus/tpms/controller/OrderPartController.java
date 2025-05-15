@@ -1,13 +1,9 @@
 package com.jinpus.tpms.controller;
 
-import com.jinpus.tpms.api.domain.OrderFabricDo;
-import com.jinpus.tpms.api.domain.OrderPartDo;
-import com.jinpus.tpms.api.dto.OrderPartDto;
 import com.jinpus.tpms.service.OrderPartService;
 import com.pig4cloud.pig.common.core.util.R;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**

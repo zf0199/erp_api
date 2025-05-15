@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.jinpus.tpms.api.domain.OrderFabricDo;
 import com.jinpus.tpms.api.dto.OrderFabricDto;
 import com.jinpus.tpms.api.vo.FabricColorSizeVo;
-import com.pig4cloud.pig.common.core.util.R;
 
 /**
  * @className: OrderFabricService

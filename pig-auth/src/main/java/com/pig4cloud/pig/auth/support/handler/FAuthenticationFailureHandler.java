@@ -44,7 +44,7 @@ import java.io.IOException;
  * @date 2022-06-02
  */
 @Slf4j
-public class PigAuthenticationFailureEventHandler implements AuthenticationFailureHandler {
+public class FAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
 	private final MappingJackson2HttpMessageConverter errorHttpResponseConverter = new MappingJackson2HttpMessageConverter();
 

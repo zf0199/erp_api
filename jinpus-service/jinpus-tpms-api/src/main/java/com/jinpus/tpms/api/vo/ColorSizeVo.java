@@ -2,7 +2,6 @@ package com.jinpus.tpms.api.vo;
 
 import com.jinpus.tpms.api.domain.OrderColorDo;
 import com.jinpus.tpms.api.domain.OrderSizeDo;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

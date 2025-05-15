@@ -1,18 +1,13 @@
 package com.jinpus.tpms.controller;
 
-import cn.hutool.core.collection.CollUtil;
 import com.jinpus.tpms.api.domain.OrderFabricDo;
 import com.jinpus.tpms.api.dto.OrderFabricDto;
-import com.jinpus.tpms.api.dto.WorkOrderDto;
 import com.jinpus.tpms.api.vo.FabricColorSizeVo;
 import com.jinpus.tpms.service.OrderFabricService;
 import com.pig4cloud.pig.common.core.util.R;
 import com.pig4cloud.pig.common.log.annotation.SysLog;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;

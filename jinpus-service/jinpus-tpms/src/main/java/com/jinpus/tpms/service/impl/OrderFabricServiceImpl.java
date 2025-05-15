@@ -16,7 +16,6 @@ import com.jinpus.tpms.mapper.OrderFabricColorSizMapper;
 import com.jinpus.tpms.mapper.OrderFabricMapper;
 import com.jinpus.tpms.mapper.OrderSizeMapper;
 import com.jinpus.tpms.service.OrderFabricService;
-import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
 
 import java.util.*;

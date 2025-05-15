@@ -1,6 +1,5 @@
 package com.jinpus.tpms.api.dto;
 
-import com.jinpus.tpms.api.domain.CutOrderBedDo;
 import com.jinpus.tpms.api.domain.CutOrderDo;
 import lombok.Data;
 

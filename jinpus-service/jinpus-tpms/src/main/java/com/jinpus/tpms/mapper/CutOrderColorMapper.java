@@ -1,9 +1,7 @@
 package com.jinpus.tpms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jinpus.tpms.api.domain.CutOrderBedDo;
 import com.jinpus.tpms.api.domain.CutOrderColorDo;
-import com.jinpus.tpms.api.domain.CutOrderDo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

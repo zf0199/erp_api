@@ -1,18 +1,4 @@
-/*
- * Copyright (c) 2020 pig4cloud Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.pig4cloud.pig.auth.support.handler;
 
@@ -46,11 +32,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 /**
- * @author lengleng
- * @date 2022-06-02
+ * @className: JpsAuthenticationSuccessEventHandler
+ * @author: zf
+ * @date: 2025/5/14 16:03
+ * @version: 1.0
+ * @description:  用户登录成功处理器
  */
+
 @Slf4j
-public class PigAuthenticationSuccessEventHandler implements AuthenticationSuccessHandler {
+public class FAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter = new PigCustomOAuth2AccessTokenResponseHttpMessageConverter();
 
@@ -63,15 +53,17 @@ public class PigAuthenticationSuccessEventHandler implements AuthenticationSucce
 	 */
 	@SneakyThrows
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+
 		OAuth2AccessTokenAuthenticationToken accessTokenAuthentication = (OAuth2AccessTokenAuthenticationToken) authentication;
+
 		Map<String, Object> map = accessTokenAuthentication.getAdditionalParameters();
 		if (MapUtil.isNotEmpty(map)) {
 			// 发送异步日志事件
 			PigUser userInfo = (PigUser) map.get(SecurityConstants.DETAILS_USER);
 			log.info("用户：{} 登录成功", userInfo.getName());
 			SecurityContextHolder.getContext().setAuthentication(accessTokenAuthentication);
+
 			SysLog logVo = SysLogUtils.getSysLog();
 			logVo.setTitle("登录成功");
 			String startTimeStr = request.getHeader(CommonConstants.REQUEST_START_TIME);

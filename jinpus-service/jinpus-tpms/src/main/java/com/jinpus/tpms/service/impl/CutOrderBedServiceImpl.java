@@ -2,17 +2,21 @@ package com.jinpus.tpms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.jinpus.tpms.api.domain.*;
+import com.jinpus.tpms.api.domain.CutOrderBedDo;
+import com.jinpus.tpms.api.domain.CutOrderColorDo;
+import com.jinpus.tpms.api.domain.CutOrderSizeDo;
+import com.jinpus.tpms.api.domain.OrderProcedureDo;
 import com.jinpus.tpms.api.dto.CutOrderBedDto;
 import com.jinpus.tpms.api.dto.CutOrderColorDto;
-import com.jinpus.tpms.api.dto.CutOrderSizeDto;
 import com.jinpus.tpms.api.vo.CutBedSumVo;
 import com.jinpus.tpms.api.vo.CutOrderBedColorSizeVo;
 import com.jinpus.tpms.api.vo.CutOrderBedVo;
-import com.jinpus.tpms.mapper.*;
+import com.jinpus.tpms.mapper.CutOrderBedMapper;
+import com.jinpus.tpms.mapper.CutOrderColorMapper;
+import com.jinpus.tpms.mapper.CutOrderSizeMapper;
+import com.jinpus.tpms.mapper.OrderProcedureMapper;
 import com.jinpus.tpms.service.CutOrderBedService;
 import com.jinpus.tpms.service.CutOrderColorService;
 import com.jinpus.tpms.service.CutOrderSizeService;
@@ -24,9 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @className: CutOrderBedServiceImpl

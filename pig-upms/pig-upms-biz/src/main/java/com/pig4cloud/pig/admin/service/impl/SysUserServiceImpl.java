@@ -97,7 +97,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		BeanUtils.copyProperties(userDto, sysUser);
 		sysUser.setDelFlag(CommonConstants.STATUS_NORMAL);
 		sysUser.setCreateBy(userDto.getUsername());
+		// 密码加密
 		sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
+		// 默认 123456
+		sysUser.setMiniAppPassword(ENCODER.encode("123456"));
 		baseMapper.insert(sysUser);
 		// 保存用户岗位信息
 		Optional.ofNullable(userDto.getPost()).ifPresent(posts -> {

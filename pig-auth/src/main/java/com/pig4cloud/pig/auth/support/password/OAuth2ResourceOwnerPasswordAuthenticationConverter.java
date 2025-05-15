@@ -32,8 +32,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationConverter
 	}
 
 	@Override
-	public OAuth2ResourceOwnerPasswordAuthenticationToken buildToken(Authentication clientPrincipal,
-			Set requestedScopes, Map additionalParameters) {
+	public OAuth2ResourceOwnerPasswordAuthenticationToken buildToken(Authentication clientPrincipal, Set requestedScopes, Map additionalParameters) {
 		return new OAuth2ResourceOwnerPasswordAuthenticationToken(AuthorizationGrantType.PASSWORD, clientPrincipal,
 				requestedScopes, additionalParameters);
 	}

@@ -11,8 +11,6 @@ import com.jinpus.tpms.service.OrderPartService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Wrapper;
-
 /**
  * @className: OrderPartServiceImpl
  * @author: zf

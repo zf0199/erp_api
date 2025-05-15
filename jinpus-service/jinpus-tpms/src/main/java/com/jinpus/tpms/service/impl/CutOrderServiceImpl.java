@@ -7,19 +7,19 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jinpus.tpms.api.domain.*;
-import com.jinpus.tpms.api.dto.*;
 import com.jinpus.tpms.api.vo.*;
 import com.jinpus.tpms.mapper.*;
-import com.jinpus.tpms.service.*;
+import com.jinpus.tpms.api.dto.CutOrderDto;
+import com.jinpus.tpms.api.dto.CutOrderQueryDto;
+import com.jinpus.tpms.service.CutOrderBedService;
+import com.jinpus.tpms.service.CutOrderService;
+import com.jinpus.tpms.service.WorkOrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -161,8 +161,16 @@ public class CutOrderServiceImpl extends ServiceImpl<CutOrderMapper, CutOrderDo>
 		cutOrderBedDo.eq(CutOrderBedDo::getCutOrderId,id);
 
 		List<CutOrderBedDo> cutOrderBedDos = cutOrderBedMapper.selectList(cutOrderBedDo);
+		if (cutOrderBedDos.isEmpty()){
+			CountCutOrderVo countCutOrderVo = new CountCutOrderVo();
+			countCutOrderVo.setCountColorVos(Collections.emptyList());
+			countCutOrderVo.setCutOrderBedVos(Collections.emptyList());
+			countCutOrderVo.setCountColorSizeVo(Collections.emptyList());
+		return countCutOrderVo;
+		}
 		//  所有的床数
 		List<Long> list1 = cutOrderBedDos.stream().map(CutOrderBedDo::getId).toList();
+
 
 		LambdaQueryWrapper<CutOrderColorDo> cutOrderColorDoWrapper = Wrappers.lambdaQuery();
 		cutOrderColorDoWrapper.in(CollectionUtils.isNotEmpty(list1),CutOrderColorDo::getCutOrderBedId,list1);

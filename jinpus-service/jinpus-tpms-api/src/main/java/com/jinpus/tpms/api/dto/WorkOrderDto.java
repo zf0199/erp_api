@@ -1,9 +1,7 @@
 package com.jinpus.tpms.api.dto;
 
-import com.jinpus.tpms.api.domain.OrderColorDo;
-import com.jinpus.tpms.api.domain.OrderProcessDo;
-import com.jinpus.tpms.api.domain.OrderSizeDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
+import com.jinpus.tpms.api.domain.OrderProcessDo;
 import lombok.Data;
 
 import java.util.List;

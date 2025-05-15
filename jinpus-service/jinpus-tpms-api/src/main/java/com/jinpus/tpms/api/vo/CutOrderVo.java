@@ -3,7 +3,6 @@ package com.jinpus.tpms.api.vo;
 import com.jinpus.tpms.api.domain.CutOrderBedDo;
 import com.jinpus.tpms.api.domain.CutOrderDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
-import com.jinpus.tpms.api.dto.CutOrderBedDto;
 import lombok.Data;
 
 import java.util.List;

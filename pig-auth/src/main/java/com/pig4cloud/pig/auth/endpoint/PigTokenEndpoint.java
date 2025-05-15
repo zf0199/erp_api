@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pig4cloud.pig.admin.api.entity.SysOauthClientDetails;
 import com.pig4cloud.pig.admin.api.feign.RemoteClientDetailsService;
 import com.pig4cloud.pig.admin.api.vo.TokenVo;
-import com.pig4cloud.pig.auth.support.handler.PigAuthenticationFailureEventHandler;
+import com.pig4cloud.pig.auth.support.handler.FAuthenticationFailureHandler;
 import com.pig4cloud.pig.common.core.constant.CacheConstants;
 import com.pig4cloud.pig.common.core.constant.CommonConstants;
 import com.pig4cloud.pig.common.core.util.R;
@@ -79,7 +79,7 @@ public class PigTokenEndpoint {
 
 	private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
 
-	private final AuthenticationFailureHandler authenticationFailureHandler = new PigAuthenticationFailureEventHandler();
+	private final AuthenticationFailureHandler authenticationFailureHandler = new FAuthenticationFailureHandler();
 
 	private final OAuth2AuthorizationService authorizationService;
 

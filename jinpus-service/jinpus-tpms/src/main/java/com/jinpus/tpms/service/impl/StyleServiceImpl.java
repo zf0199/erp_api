@@ -1,10 +1,9 @@
 package com.jinpus.tpms.service.impl;
 
-import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jinpus.tpms.service.StyleService;
 import com.jinpus.tpms.api.domain.StyleDo;
 import com.jinpus.tpms.api.domain.StyleMaterialDo;
 import com.jinpus.tpms.api.domain.StylePartDo;
@@ -17,13 +16,11 @@ import com.jinpus.tpms.mapper.StyleProcedureMapper;
 import com.jinpus.tpms.service.StyleMaterialService;
 import com.jinpus.tpms.service.StylePartService;
 import com.jinpus.tpms.service.StyleProcedureService;
-import com.jinpus.tpms.service.StyleService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Wrapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

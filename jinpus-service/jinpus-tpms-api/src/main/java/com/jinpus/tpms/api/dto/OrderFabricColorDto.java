@@ -1,16 +1,12 @@
 package com.jinpus.tpms.api.dto;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.jinpus.tpms.api.domain.OrderFabricColorDo;
 import com.jinpus.tpms.api.domain.OrderFabricSizeDo;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

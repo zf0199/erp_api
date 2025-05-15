@@ -2,14 +2,10 @@ package com.jinpus.tpms.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jinpus.tpms.api.domain.OrderFabricColorSizeDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
-import com.jinpus.tpms.api.vo.ColorSizeVo;
 import com.jinpus.tpms.api.dto.WorkOrderDto;
 import com.jinpus.tpms.api.vo.FabricColorSizeVo;
 import com.jinpus.tpms.api.vo.WorkOrderVo;
-
-import java.util.List;
 
 /**
  * @className: WorkOrderService

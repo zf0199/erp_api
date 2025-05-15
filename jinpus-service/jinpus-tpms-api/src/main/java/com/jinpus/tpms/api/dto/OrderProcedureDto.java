@@ -1,9 +1,5 @@
 package com.jinpus.tpms.api.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.jinpus.tpms.api.domain.BaseDo;
 import com.jinpus.tpms.api.domain.OrderProcedureDetailDo;
 import com.jinpus.tpms.api.domain.OrderProcedureDo;
 import lombok.Data;

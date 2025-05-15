@@ -13,7 +13,6 @@ import com.pig4cloud.pig.common.log.annotation.SysLog;
 import com.pig4cloud.plugin.excel.annotation.ResponseExcel;
 import com.pig4cloud.plugin.excel.annotation.RequestExcel;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import com.pig4cloud.pig.common.security.annotation.HasPermission;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpHeaders;
 import io.swagger.v3.oas.annotations.tags.Tag;

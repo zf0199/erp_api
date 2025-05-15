@@ -5,7 +5,6 @@ import com.jinpus.tpms.api.domain.UnitDo;
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * @className: TestMath

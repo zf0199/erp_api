@@ -64,6 +64,21 @@ public class UserVO implements Serializable {
 	private String salt;
 
 	/**
+	 *   是否允许小程序登录(0允许 1不允许)
+	 */
+	private String allowMiniAppLogin;
+
+	/**
+	 *   小程序密码
+	 */
+	private String miniAppPassword;
+
+	/**
+	 *  是否允许pc登录(0允许 1不允许)
+	 */
+	private String allowPcLogin;
+
+	/**
 	 * 微信openid
 	 */
 	@Schema(description = "微信open id")

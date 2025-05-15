@@ -2,7 +2,6 @@ package com.jinpus.tpms.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jinpus.tpms.api.domain.OrderColorDo;
-import com.jinpus.tpms.api.domain.OrderSizeDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

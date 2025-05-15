@@ -1,8 +1,6 @@
 package com.jinpus.tpms.api.vo;
 
-import com.jinpus.tpms.api.domain.CutOrderBedDo;
 import com.jinpus.tpms.api.domain.CutOrderColorDo;
-import com.jinpus.tpms.api.domain.CutOrderDo;
 import lombok.Data;
 
 /**

@@ -1,7 +1,5 @@
 package com.jinpus.tpms.api.vo;
 
-import com.jinpus.tpms.api.domain.CutOrderColorDo;
-import com.jinpus.tpms.api.domain.CutOrderSizeDo;
 import lombok.Data;
 
 import java.util.List;

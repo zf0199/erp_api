@@ -1,10 +1,8 @@
 package com.jinpus.tpms.api.vo;
 
-import com.jinpus.tpms.api.domain.OrderFabricDo;
 import com.jinpus.tpms.api.domain.OrderProcessDo;
 import com.jinpus.tpms.api.domain.WorkOrderDo;
 import com.jinpus.tpms.api.dto.OrderColorDto;
-import com.jinpus.tpms.api.dto.OrderFabricDto;
 import com.jinpus.tpms.api.dto.OrderPartDto;
 import lombok.Data;
 

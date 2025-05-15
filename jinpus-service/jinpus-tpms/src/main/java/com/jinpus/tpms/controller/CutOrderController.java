@@ -1,7 +1,5 @@
 package com.jinpus.tpms.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jinpus.tpms.api.domain.CutOrderDo;
 import com.jinpus.tpms.api.dto.CutOrderDto;
@@ -10,7 +8,6 @@ import com.jinpus.tpms.service.CutOrderBedService;
 import com.jinpus.tpms.service.CutOrderService;
 import com.pig4cloud.pig.common.core.util.R;
 import lombok.AllArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 

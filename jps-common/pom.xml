@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.jps</groupId>
+        <artifactId>jps_erp</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>jps-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description> 公共聚合模块</description>
+
+    <modules>
+        <module>jps-common-bom</module>
+        <module>jps-common-core</module>
+        <module>jps-common-datasource</module>
+        <module>jps-common-log</module>
+        <module>jps-common-mybatis</module>
+        <module>jps-common-oss</module>
+        <module>jps-common-seata</module>
+        <module>jps-common-security</module>
+        <module>jps-common-feign</module>
+        <module>jps-common-swagger</module>
+        <module>jps-common-xss</module>
+        <module>jps-common-excel</module>
+    </modules>
+</project>

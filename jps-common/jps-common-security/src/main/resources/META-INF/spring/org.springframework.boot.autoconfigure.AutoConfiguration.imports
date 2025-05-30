@@ -1,0 +1,7 @@
+com.jps.common.security.service.FUserDetailsServiceImpl
+com.jps.common.security.service.FAppUserDetailsServiceImpl
+com.jps.common.security.service.PigRedisOAuth2AuthorizationService
+com.jps.common.security.service.PigRedisOAuth2AuthorizationConsentService
+com.jps.common.security.component.PigSecurityInnerAspect
+com.jps.common.security.component.PigSecurityMessageSourceConfiguration
+com.jps.common.security.service.PigRemoteRegisteredClientRepository

@@ -1,0 +1,3 @@
+com.jps.common.feign.PigFeignAutoConfiguration
+com.jps.common.feign.sentinel.SentinelAutoConfiguration
+com.jps.common.feign.sentinel.handle.GlobalBizExceptionHandler

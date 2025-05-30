@@ -1,0 +1,6 @@
+com.jps.common.core.config.TaskExecutorConfiguration
+com.jps.common.core.config.JacksonConfiguration
+com.jps.common.core.config.RedisTemplateConfiguration
+com.jps.common.core.config.RestTemplateConfiguration
+com.jps.common.core.util.SpringContextHolder
+com.jps.common.core.config.WebMvcConfiguration

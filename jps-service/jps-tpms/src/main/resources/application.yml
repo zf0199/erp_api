@@ -1,0 +1,26 @@
+server:
+  port: 4001
+
+spring:
+  application:
+    name: @artifactId@  #jinpus-tpms
+  cloud:
+    nacos:
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: cb35c8c5-4331-4105-9c20-2c04fa3fb43a
+  config:
+    import:
+      - nacos:application-@profiles.active@.yml
+      - nacos:${spring.application.name}-@profiles.active@.yml
+
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/com.jinpus.tpms.mapper.xml/*.xml
+
+

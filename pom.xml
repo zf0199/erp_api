@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-  ~ Copyright (c) 2020 pig4cloud Authors. All Rights Reserved.
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pig4cloud</groupId>
-    <artifactId>cb_erp</artifactId>
+    <groupId>com.jps</groupId>
+    <artifactId>jps_erp</artifactId>
     <name>${project.artifactId}</name>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -29,11 +14,9 @@
     <properties>
         <!-- 项目版本号 -->
         <revision>1.0</revision>
-
 <!--        <spring-boot.version>3.4.3</spring-boot.version>-->
 <!--        <spring-cloud.version>2024.0.0</spring-cloud.version>-->
 <!--        <spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>-->
-
 		<spring-boot.version>3.4.0</spring-boot.version>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
 		<spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>
@@ -56,7 +39,7 @@
         <docker.plugin.version>0.45.1</docker.plugin.version>
         <docker.host>http://192.168.0.100:2375</docker.host>
         <docker.registry>registry.cn-shanghai.aliyuncs.com</docker.registry>
-        <docker.namespace>pig4cloud</docker.namespace>
+        <docker.namespace>jps</docker.namespace>
         <docker.username>username</docker.username>
         <docker.password>password</docker.password>
         <git.commit.plugin>9.0.1</git.commit.plugin>
@@ -111,21 +94,23 @@
     </dependencies>
 
     <modules>
-        <module>pig-register</module>
-        <module>pig-gateway</module>
-        <module>pig-auth</module>
-        <module>pig-upms</module>
-        <module>pig-common</module>
-        <module>pig-visual</module>
-        <module>jinpus-service</module>
+        <module>jps-register</module>
+        <module>jps-gateway</module>
+        <module>jps-auth</module>
+        <module>jps-admin</module>
+        <module>jps-common</module>
+<!--        <module>pig-visual</module>-->
+        <module>jps-service</module>
+        <module>jps-oms</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <!--pig 公共版本定义-->
+
+            <!-- 公共版本定义 全局common版本-->
             <dependency>
-                <groupId>com.pig4cloud</groupId>
-                <artifactId>pig-common-bom</artifactId>
+                <groupId>com.jps</groupId>
+                <artifactId>jps-common-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
